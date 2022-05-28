@@ -12,26 +12,61 @@
      height: 450px;
      margin: auto; 
      .login-content{
-         padding: 40px;
-         label{
-             margin-left: 10px;
-             margin-top: 10px;
+         .col-12{
+             margin: 10px 0;
+             display: flex;
+            input{
+                :focus-visible{
+                    outline: none;
+                }
+                flex : 1 1;
+                border: 1px solid #bbb;
+                border-radius: 20px;
+                height: 30px;
+                margin-top: 10px;
+                
+            }
+
+            label{
+                line-height: 30px;
+                width: 130px;
+                align-items: center;
+                text-align: left;
+                margin-top: 10px;
+                font-size: 15px;
+            }
+            .err-message{
+                margin: auto;
+            }
+   
          }
-         .btn{
+         padding: 40px;
+        
+         .btn-login{
+             &:hover{
+                 opacity: 0.85;
+             }
+             cursor: pointer;
+             margin: auto;
+             color: white;
+             height: 40px;
+             background-color: #F05123;
+             border: none;
              width: 80%;
              border-radius: 20px;
              margin-top: 20px;
          }
-         input{
-             border-radius: 20px;
-             margin-top: 10px;
-         }
-
+         
+         
          h1{
              font-weight: bold;
          }
          .regis-now{
             margin-top: 20px;
+            font-size: 15px;
+            .suggest{
+                margin: auto;
+            }
          }
 
          

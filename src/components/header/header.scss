@@ -1,0 +1,105 @@
+.wrapper{
+    display: flex;
+    background-color: white;
+    width: 100%;
+    height: 100px;
+    .nav-logo{
+        margin-left: 50px;
+        flex: 1 1;
+        justify-content: flex-start;
+        height: 100%;
+        img{
+            width: 100px;
+            height: 100%;
+        }
+    }
+    .nav-body{
+        align-items: center;
+        flex: 1 1;
+        height: 100%;
+        justify-content: center;
+        display: flex;
+        .wrap-search-bar{
+            border: 2px solid #e8e8e8;
+            border-radius: 20px;
+            flex: 1 1;
+            height: 40px;
+            padding: 0 16px 0 8px;
+            transition: border-color .2s ease-in-out;
+            width: 420px;
+            .search-input{
+                border: none;
+                caret-color: #444;
+                flex: 1 1;
+                height: 100%;
+                outline: none;
+                padding: 0 4px;
+                font-family: 'Lexend Deca', sans-serif;
+            }
+            .icon{
+                margin-right: 10px;
+                border-radius: 50%;
+                height: 50px;
+                opacity: .7;
+                transition: opacity .2s ease-in-out;
+                width: 50px;
+            }
+        }
+    }
+    .nav-action{
+        margin-right: 50px;
+        align-items: center;
+        flex: 1 1;
+        height: 100%;
+        justify-content: flex-end;
+        display: flex;
+        .action-item{
+            padding: 0 20px;
+            
+            &.user-icon{
+                position: relative;
+                &:hover .user-action{
+                    display: block;
+                }
+                .user-action{
+                    position: absolute;
+                    display: none;
+                    z-index: 9999;
+                    width: 120px;
+                    right: 0;
+                    top: 0;
+                    animation: Tippy-module_fadeIn__2LeID .3s ease;
+                    background: var(--white-color);
+                    border-radius: 10px;
+                    box-shadow: 0 -4px 32px rgb(0 0 0 / 20%);
+                    color: #1d2129;
+                    margin: 0;
+                    overflow: hidden;
+                    padding-left: 0;
+                    transition: all .3s ease-in-out;
+                    will-change: opacity,transform;
+                
+                    >li{
+                        &:hover{
+                            cursor: pointer;
+                            background-color: #ccc;
+                        }
+                        text-align: center;
+                        padding: 5px 10px;
+                        
+                    }
+
+                    :first-child{
+                        padding-top: 10px;
+                        border-radius: 10px 10px 0 0;
+                    }
+                    :last-child{
+                        padding-bottom: 10px;
+                        border-radius: 0 0 10px 10px;
+                    }
+                }
+            }
+
+        }
+    }
+}
