@@ -1,18 +1,16 @@
-
+import { Routes, Route } from 'react-router-dom'
 import './App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import Login from './containers/Login'
 import Layout from './components/layout/layout';
-import Navbar from './components/responsiveNavBar/navbar';
-import Header from './components/header/header';
+import Login from './containers/Login'
 function App() {
   return (
-    // <Layout>
-    //   <Login />
 
-    // </Layout>
-    //<Navbar />
-    <Header />
+    <Routes>
+      <Route path='/' element={<Layout />} />
+      <Route path='/login' element={<Login />} />
+    </Routes>
+
   );
 }
 

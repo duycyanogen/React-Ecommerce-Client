@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+body::-webkit-scrollbar {
+ display: none;             /* width of the entire scrollbar */
+}
+body::-webkit-scrollbar-track {
+  display: none;      /* color of the tracking area */
+}
+body::-webkit-scrollbar-thumb {
+  display: none;   
+}
