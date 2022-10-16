@@ -89,35 +89,32 @@ function Login(props) {
 
     return (
         <div className="login-background">
-            <div className="login-container col-3">
-                <div className="login-content row">
-                    <div className="col-12">
+            <div className="login-container">
+                <div className="login-content">
+                    <div className="login-content__title">
                         <h1>
                             Login
                         </h1>
                     </div>
-                    <div className="col-12">
-                        <label className=''>Tên đăng nhập</label>
+                    <div className="login-content__item">
+                        <span className=''>Tên đăng nhập</span>
                         <input type="text" className="" id='txtUserName' value={userName} onChange={(e) => handleChangeUserName(e)} />
                     </div>
-                    <div className="col-12">
-                        <label className='' id='txtPassword' >Mật khẩu</label>
+                    <div className="login-content__item">
+                        <span className='' id='txtPassword' >Mật khẩu</span>
                         <input type="password" className="" value={password} onChange={(e) => handleChangePassword(e)} />
                     </div>
-                    <div className="col-12">
-                        <button className='btn-login btn-success' id='btnLogin' onClick={() => handleLoginClick()}>Đăng nhập</button>
-
-                    </div>
-                    <div className="col-12 regis-now" style={{ display: errorMessage.length > 0 ? "flex" : "none" }}>
+                    <div className="login-content__err" style={{ display: errorMessage.length > 0 ? "flex" : "none" }}>
                         <span className='err-message'>{errorMessage}</span>
                     </div>
-                    <div className="col-12 regis-now">
-                        <div className="suggest">
-
-                            <span>Bạn chưa có tài khoản? </span>
-                            <a href='#' onClick={(e) => showModal(e)}>Đăng kí ngay</a>
-                        </div>
+                    <div className="login-content__btn">
+                        <button className='btn-login btn-success' id='btnLogin' onClick={() => handleLoginClick()}>Đăng nhập</button>
                     </div>
+                    <div className="login-content__register">
+                        <span>Bạn chưa có tài khoản? </span>
+                        <a href='#' onClick={(e) => showModal(e)}>Đăng kí ngay</a>
+                    </div>
+                   
                 </div>
 
             </div>

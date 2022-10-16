@@ -16,7 +16,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,11 +38,14 @@
   }
 }
 
+body {
+  box-sizing: border-box;
+}
 body::-webkit-scrollbar {
- display: none;             /* width of the entire scrollbar */
+ display: none;
 }
 body::-webkit-scrollbar-track {
-  display: none;      /* color of the tracking area */
+  display: none;     
 }
 body::-webkit-scrollbar-thumb {
   display: none;   
