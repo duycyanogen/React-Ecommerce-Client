@@ -1,0 +1,58 @@
+.header {
+    text-align: center;
+    font-size : 22px;
+}
+
+.field {
+    display: flex;
+    margin : 10px;
+
+    .input {
+        :focus-visible {
+            outline: none;
+        }
+
+        flex         : 1 1;
+        border       : 1px solid #bbb;
+        border-radius: 20px;
+        height       : 30px;
+        margin-top   : 10px;
+
+    }
+
+    .label {
+        line-height: 30px;
+        width      : 130px;
+        align-items: center;
+        text-align : left;
+        margin-top : 10px;
+        font-size  : 15px;
+    }
+}
+
+.button-bar {
+    display: flex;
+
+    .btn-regis,
+    .btn-cancel {
+        &:hover {
+            opacity: 0.85;
+        }
+
+        flex            : 1 1;
+        cursor          : pointer;
+        margin          : auto;
+        color           : white;
+        height          : 40px;
+        background-color: #F05123;
+        border          : none;
+        border-radius   : 20px;
+        margin          : 20px 10px;
+    }
+
+    .btn-cancel {
+        background-color: #DC3545;
+    }
+
+
+}

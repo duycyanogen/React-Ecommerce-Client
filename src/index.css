@@ -48,4 +48,8 @@ table {
 	border-spacing: 0;
 }
 
+.modal{
+	border-radius: 30px !important;
+}
+
 

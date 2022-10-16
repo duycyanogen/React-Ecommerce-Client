@@ -14,9 +14,20 @@
     "node-sass": "^7.0.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-router-dom": "^6.3.0",
+    "react-redux": "^8.0.2",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^6.2.0",
     "react-scripts": "5.0.1",
+<<<<<<< HEAD
     "styled-components": "^5.3.6",
+=======
+    "react-toastify": "^9.0.3",
+    "reactstrap": "^9.0.3",
+    "redux": "^4.2.0",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.4.1",
+>>>>>>> be036217f91d122be71ade1d6165e69a18984aee
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -43,6 +54,7 @@
       "last 1 safari version"
     ]
   },
+  "proxy": "http://localhost:8083/KTLTHDT/api/v1",
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^6.1.1"
   }
