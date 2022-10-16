@@ -34,10 +34,10 @@ const getAll = async () => {
     // });
     //return axios({ method: 'get', url: api + '/api/user/getUserInfo?UserId=1', headers: { 'Authorization': 'Bearer ' + accessToken } })
     //console.log(axios.request.headers)
-    return await axios.get('http://localhost:8080/flower/get');
+    // return await axios.get('http://localhost:8080/flower/get');  // API HOA
     //return await axios.post("/post/select");
     //return await axios.post("http://localhost:8889/api/v1/post/select");
-    //return axios.get('http://localhost:8889/api/v1/guitar');
+    return axios.get('http://localhost:8889/api/v1/guitar');
 }
 
 const handleAddNewGuitar = (input) => {

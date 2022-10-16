@@ -2,7 +2,8 @@
     display: flex;
     height: 100vh;
     background: linear-gradient(135deg,rgba(34,193,195,1)0%,rgba(253,187,45,1)100%);
-    background-image: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1574');
+    // background-image: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1574');
+    background-image: url('../../public/image/login-background.jpg');
     background-size: cover;
     .login-container{
      margin: auto;
