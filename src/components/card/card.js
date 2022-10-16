@@ -10,7 +10,7 @@ export default class Card extends Component {
 
     render() {
         return (
-            <div className="col-md-2">
+            <a href={'/products/' + this.props.id} className="col-md-2" onClick={this.props.onclick}>
                 <div className="card">
                     <div className="card_img">
                         <img src={this.props.imageURL} alt="" />
@@ -27,7 +27,7 @@ export default class Card extends Component {
                         </span>
                     </div>
                 </div>
-            </div>
+            </a>
         )
     }
 }

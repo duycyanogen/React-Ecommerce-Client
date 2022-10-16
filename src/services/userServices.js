@@ -7,10 +7,17 @@ const handleLogin = (userName, password) => {
     });
 }
 
-const handleRegis = () => {
-    return axios.post('http://localhost:8889/api/v1/regis',)
+const handleRegis = (input) => {
+    return axios.post('http://localhost:8889/api/v1/regis', {
+        email: input.email,
+        password: input.password,
+        name: input.name,
+        address: input.address,
+        phone: input.phone
+    })
 }
 
 export {
-    handleLogin
+    handleLogin,
+    handleRegis
 }
