@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   /* ?haha */
+  background-color: #121212;
 }
 
 .App-logo {
@@ -40,13 +41,8 @@
 
 body {
   box-sizing: border-box;
+  overflow-x: hidden;
 }
-body::-webkit-scrollbar {
- display: none;
-}
-body::-webkit-scrollbar-track {
-  display: none;     
-}
-body::-webkit-scrollbar-thumb {
-  display: none;   
-}
+
+
+

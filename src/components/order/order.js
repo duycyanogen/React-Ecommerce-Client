@@ -6,6 +6,8 @@ import PayConfirmModal from "../payConfirmModal/payConfirmModal";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { handleDeleteTransaction } from '../../services/transactionService'
+import { TableCustom } from "../commonModules/TableCustom";
+import "../../assets/img/guitar.jpg"
 const Order = () => {
     const [orderList, setOrderList] = useState([]);
     const userInfo = useSelector(state => state.user.userInfo);
@@ -131,9 +133,66 @@ const Order = () => {
             progress: undefined,
         });
     };
+    
+    // TABLE
+    const dataSource = [
+        {
+          key: '1',
+          img: 'http://localhost:8889/api/v1/image1?imageName=dan2_600x600.jpg',
+          name: 'sản phẩm 1',
+          count: '2',
+          money: 20,
+        },
+        {
+            key: '2',
+            img: 'http://localhost:8889/api/v1/image1?imageName=dan1_600x600.jpg',
+            name: 'sản phẩm 2',
+            count: '5',
+            money: 50,
+          },
+          {
+            key: '1',
+            img: 'http://localhost:8889/api/v1/image1?imageName=dan2_600x600.jpg',
+            name: 'sản phẩm 1',
+            count: '2',
+            money: 20,
+          }
+      ];
+      
+      const columns = [
+        {
+          title: 'Hình ảnh',
+          dataIndex: 'img',
+          key: 'img',
+          render: (img)=> <img src={img}/>
+        },
+        {
+          title: 'Tên sản phẩm',
+          dataIndex: 'name',
+          key: 'name',
+        },
+        {
+          title: 'Số lượng',
+          dataIndex: 'count',
+          key: 'count',
+        },
+        {
+          title: 'Thành tiền',
+          dataIndex: 'money',
+          key: 'money',
+        },
+        {
+          title: 'Hủy đơn hàng',
+          dataIndex:  'deleteOrder',
+          key: 'deleteOrder',
+          render: () => <button className="primary-button">Hủy đơn</button>
+        }
+      ];
+    
     return (
         orderList && orderList.length > 0 ? (
             <div className="order-page">
+                <p className="primary-title">Đơn hàng của bạn</p>
                 <div className="order-page-container">
                     {/* {listUniqueTrans && listUniqueTrans.length > 0} */}
 
@@ -141,9 +200,9 @@ const Order = () => {
                         return (
                             <div key={index} className="order-page-table" style={{ marginTop: "20px" }}>
                                 <table className="order-table-product">
-                                    <div style={{ display: "flex", margin: "10px" }}>
-                                        <h2 style={{ lineHeight: "35px" }}>Đơn hàng {trans}</h2>
-                                        <button className={orderList.find(x => x.transactionID == trans).adminAccept == true || orderList.find(x => x.transactionID == trans).UserCanceled == true ? "order-header-cta gray-bg" : "order-header-cta red-bg"} style={{ border: "none", marginLeft: "20px" }} onClick={() => deleteTransaction(trans)}>Hủy đơn hàng</button>
+                                    <div style={{ display: "flex",marginBottom:'10px' , justifyContent:'space-between'}}>
+                                        <h2 className="order-table-product-title">Đơn hàng {trans}</h2>
+                                        <button className={orderList.find(x => x.transactionID == trans).adminAccept == true || orderList.find(x => x.transactionID == trans).UserCanceled == true ? "order-header-cta gray-bg" : "order-header-cta primary-button"}  onClick={() => deleteTransaction(trans)} style={{width:'fit-content'}}>Hủy đơn hàng</button>
                                     </div>
                                     <thead>
                                         <tr className="order-table-header">
@@ -162,7 +221,7 @@ const Order = () => {
                                                 <tr className="order-table-content" key={index}>
                                                     {/* <td className="bold-text red-text order-table-desktop" style={{ textAlign: "center", verticalAlign: "middle" }}>{order.transactionID}</td> */}
                                                     <td className="order-table-image-info" style={{ textAlign: "center", verticalAlign: "middle" }}><img src={order.imageURL} /></td>
-                                                    <td className="bold-text red-text order-table-desktop" style={{ textAlign: "center", verticalAlign: "middle" }}>{order.name}</td>
+                                                    <td className="bold-text order-table-desktop" style={{ textAlign: "center", verticalAlign: "middle" }}>{order.name}</td>
                                                     <td className="order-table-desktop" style={{ textAlign: "center", verticalAlign: "middle" }}>
                                                         <p>{order.quantity}</p>
                                                     </td>
@@ -195,12 +254,7 @@ const Order = () => {
                             </div>
                         )
                     })}
-                    {/* <div className="order-block-right">
-
-                        <div className="order-header-footer">
-                            <button href="#" className="order-header-cta red-bg" target="_blank" onClick={() => showModal()}>Thanh toán</button>
-                        </div>
-                    </div> */}
+                    <TableCustom dataTable={dataSource} columnsTable={columns} pageSize={2} />
                 </div>
                 <ToastContainer />
                 {/* <PayConfirmModal
@@ -214,7 +268,7 @@ const Order = () => {
                 /> */}
             </div>
 
-        ) : <div>Chưa có sản phẩm nào</div>
+        ) : <p className = 'primary-title'>Chưa có sản phẩm nào</p>
 
     )
 }

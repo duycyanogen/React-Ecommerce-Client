@@ -1,5 +1,8 @@
 // mixins
-$primaryColor: #F05123;
+@import '../../constant/style.scss';
+@import '../../constant/style.scss';
+
+
 
 @mixin flex($align: center, $justify: flex-start, $wrap: nowrap, $dir: row) {
     display        : flex;
@@ -25,14 +28,20 @@ $primaryColor: #F05123;
 
         &__title {
             font-size: 2.5rem;
+            color: $textColor;
         }
 
         &__star-icon {
-            color: $primaryColor;
+            color: $textColor;
         }
 
         &__rating-amount {
             text-decoration: underline;
+            color: $textColor
+        }
+
+        &__location {
+            color: $textColor;
         }
 
         &__detail {
@@ -52,12 +61,19 @@ $primaryColor: #F05123;
         &__operation>* {
             padding      : 10px;
             border-radius: 5px;
+            color: $textColor
         }
 
+        &__operation {
+            i {
+                margin-right: 10px;
+            }
+            .fa-heart {
+                color: red;
+            }
+        }
         &__operation>*:hover {
             cursor          : pointer;
-            background-color: #eee;
-            // box-shadow: 0 0 5px #888888;
         }
     }
 
@@ -117,16 +133,20 @@ $primaryColor: #F05123;
                 // border-bottom: 1px solid #eee;
                 padding-bottom: 25px;
                 margin-top    : 25px;
+                padding-right: 80px;
 
-                & h2 {
+                 h2 {
+                    color: $textColor;
                     font-size    : 1.6rem;
                     font-weight  : 600;
                     margin-bottom: 0.5rem;
                 }
 
-                & p {
+                p {
                     font-size : 1.2rem;
+                    font-size: $textFont;
                     text-align: justify;
+                    color: $textColor;
                 }
             }
 
@@ -165,13 +185,19 @@ $primaryColor: #F05123;
             border-radius: 20px;
             flex         : 4;
             max-width    : 372px;
+            background-color: $contentColor;
 
             // height: 300px;
             & .form {
                 margin : auto;
                 padding: 2rem;
 
+                span {
+                    color: $textColor;
+                }
+
                 &__header {
+                    margin-bottom: 20px;
                     @include flex(center, space-between);
                 }
 
@@ -185,7 +211,9 @@ $primaryColor: #F05123;
                     font-weight: 500;
 
                     & i {
-                        color: $primaryColor;
+                       color: $textColor;
+                       margin-right: 10px;
+
                     }
                 }
 
@@ -195,20 +223,6 @@ $primaryColor: #F05123;
                     // border: 1px solid #eee;
                     & .grid-column:last-child {
                         border-bottom: 1px solid #eee;
-                    }
-                }
-
-                &__button {
-                    margin-top: 25px;
-
-                    & button {
-                        cursor          : pointer;
-                        width           : 100%;
-                        border          : none;
-                        padding         : 10px;
-                        background-color: $primaryColor;
-                        color           : #fff;
-                        border-radius   : 5px;
                     }
                 }
             }
@@ -254,21 +268,23 @@ $primaryColor: #F05123;
                 }
 
                 &-name {
-                    font-size  : 1.4rem;
                     font-weight: 600;
+                    font-size: $textFont;
+                    color: $textColor;
                 }
 
                 &-date {
-                    font-size: 1.2rem;
+                    font-size: $textFont;
+                    color: $textColor;
                 }
 
                 &-content {
-                    font-size     : 1.2rem;
                     max-width     : 420px;
-                    max-height    : 50px;
                     // white-space: nowrap;
                     text-overflow : ellipsis;
                     overflow      : hidden;
+                    font-size: $textFont;
+                    color: $textColor;
                 }
             }
 
@@ -294,7 +310,7 @@ $primaryColor: #F05123;
     & .about-owner {
         margin-top: 5rem;
 
-        & .owner {
+         .owner {
             @include flex(center);
 
             &__avatar {
@@ -312,10 +328,13 @@ $primaryColor: #F05123;
                 & .owner__name {
                     font-size  : 2rem;
                     font-weight: 600;
+                    color: $textColor;
+                    color: $titleColor;
                 }
 
                 & .owner__date {
                     font-size: 1.2rem;
+                    color: $textColor;
                 }
             }
         }
@@ -326,13 +345,18 @@ $primaryColor: #F05123;
 
             & span {
                 margin-right: 1rem;
+                color: $textColor;
             }
 
             & .star-icon,
             & .validate-icon {
                 margin-right: 3px;
-                color       : $primaryColor;
+                color: $textColor;
+
             }
+            .description {
+                color: $textColor ;
+            } 
         }
 
         & .contact-button {
@@ -354,6 +378,7 @@ $primaryColor: #F05123;
 
         & .response {
             margin-top: 3rem;
+            color: $textColor;
         }
 
         & .contact-button:hover {
@@ -426,4 +451,20 @@ a {
 .grid-column-3 {
     width     : 33.33%;
     /* padding: 8px; */
+}
+
+.comment-rating__heading {
+   .comment-rating__star-icon {
+    color: $textColor;
+    margin-right: 5px;
+   }
+   .comment-rating__average-rating {
+    color: $textColor;
+    margin-right: 5px;
+
+   }
+   .comment-rating__rating-amount {
+    color: $textColor;
+
+   }
 }

@@ -32,6 +32,15 @@
     .container {
         display   : flex;
         margin-top: 30px;
+        p {
+            padding: 20px 0px;
+        }
+
+        &__content {
+            background-color:  #00000029;
+            border-radius: 20px;;
+            padding: 10px;
+        }
 
         #image-preview {
             cursor       : pointer;

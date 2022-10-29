@@ -151,7 +151,6 @@ function ProductDetail(props) {
                 </section>
                 <section className="room-info">
                     <div className="room-info__benefit">
-
                         <div className="description">
                             <h2>Thông tin đàn</h2>
                             <p>• Tên:  {product.name}</p>
@@ -160,8 +159,6 @@ function ProductDetail(props) {
                             <p>• Dáng: Dáng D</p>
                             <p>• {product.contents}</p>
                         </div>
-
-
                     </div>
                     <div className="room-info__check-form">
                         <div className="form">
@@ -172,19 +169,8 @@ function ProductDetail(props) {
                                     <span>5({product.views} lượt xem)</span>
                                 </span>
                             </div>
-                            {/* <div className="form__body">
-                                <div className="grid-column">
-                                    <div className="grid-row grid-row-2">
-                                        <div className="grid-column-2">Nhận phòng</div>
-                                        <div className="grid-column-2">Trả phòng</div>
-                                    </div>
-                                    <div className="grid-row-2">
-                                        Khách
-                                    </div>
-                                </div>
-                            </div> */}
                             <div className="form__button">
-                                <button onClick={() => handleAddToCart()}>Thêm vào giỏ hàng</button>
+                                <button className = 'primary-button' onClick={() => handleAddToCart()}>Thêm vào giỏ hàng</button>
                             </div>
                         </div>
                     </div>

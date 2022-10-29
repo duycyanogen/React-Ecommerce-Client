@@ -1,0 +1,59 @@
+@import "./constant/style.scss";
+.primary-button {
+    border-radius: $borderRadius;
+    height: $heightModule;
+    background-color: $primaryColor;
+    font-size: $buttonFont;
+    padding: 0 $buttonPadding;
+    font-weight: $buttonWeight;
+    color: $whileColor;
+    border: none;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+        background-color: $primayHoverColor;
+    }
+    
+}
+.primary-border {
+ 
+}
+
+.primary-title {
+  font-size: $titleFont;
+  color: $titleColor;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.primary-text {
+  font-size: $textFont;
+  color: $textColor;
+  font-weight: $textWeight;
+}
+
+
+//SCROLL BAR
+  body::-webkit-scrollbar {
+    width: 6px;
+  }
+
+/* Track */
+  body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  body::-webkit-scrollbar-thumb {
+    background: $primaryColor;
+    height: 4px;
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  body::-webkit-scrollbar-thumb:hover {
+    background: $primayHoverColor; 
+  }

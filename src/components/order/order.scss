@@ -1,3 +1,4 @@
+@import '../../constant/style.scss';
 $tablet: "screen and (max-width: 1023px)";
 $mobile: "screen and (max-width: 599px)";
 
@@ -82,10 +83,11 @@ $mobile: "screen and (max-width: 599px)";
     .order-header-cta {
         padding        : 8px 20px;
         display        : inline-block;
-        background     : #000;
-        color          : #ffffff;
+        
         text-decoration: none;
         border-radius  : 7px;
+        // background-color: $primaryColor;
+
 
         @media screen and (max-width: 767px) {
             display   : block;
@@ -433,3 +435,35 @@ $mobile: "screen and (max-width: 599px)";
         }
     }
 }
+
+tr {
+    td {
+        color: $textColor;
+    }
+}
+.order-table-product-title {
+    color: $textColor;
+    font-size: 16px;
+
+}
+
+tr.order-table-content {
+    padding: 0 15px;
+    
+
+    p {
+        margin: 0;
+    }
+    &:hover {
+        background-color: $contentColorHover !important;
+    }
+}
+.ant-table-cell {
+    width: 20% !important;
+}
+
+.ant-table-cell-row-hover {
+    background-color: $contentColorHover !important;
+    
+}
+

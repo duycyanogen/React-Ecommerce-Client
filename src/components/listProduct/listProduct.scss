@@ -1,3 +1,4 @@
+@import '../../constant/style.scss';
 .red-bg {
     background: #d32f2f;
 }
@@ -27,5 +28,25 @@
     &.product-cta {
         width     : 100px;
         text-align: center;
+    }
+}
+.list-product-footer {
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__index {
+        margin: 0px 20px;
+        color: $textColor;
+        font-size: $textFont;
+        font-weight: $textWeight;
+    }
+
+    button {
+        border: 0px;
+        span {
+            font-size: 16px;;
+        }
     }
 }

@@ -1,26 +1,35 @@
  //MODULE 
  $heightModule : 40px;
  $borderRadius:  12px;
- $buttonFont :  18px;
- $buttonWeight: 700;
+ $buttonFont :  14px;
+ $buttonWeight: 400;
  $buttonPadding:  40px;
 
  // COLOR
- $primaryColor: #FF6699;
+//  $appColor: #141414;
+ $appColor: #191b21;
+ $contentColor: #2b2f3b;
+ $contentColorHover:  #3f465a;
+ $primaryColor: #f73173; 
  $primayHoverColor: #ff7aa6;
- $backgroundInput: #f0f0f0;
- $borderColor: #999;
+ $backgroundInput: #353849;
+ $borderColor:rgba(102, 102, 102, 0.644);
  $blackColor: #000;
  $whileColor: #fff;
- $backgroundContainer: #D7D7D7;
+;
  $errColor: rgb(231, 173, 48);
+ $smallText: 12px;
  
  //TEXT
  $textFont: 14px;
+ $titleFont: 16px;
  $textWeight: 400;
- $textColor: (105,105,105);
- $titleColor: #333;
+//  $textColor: (105,105,105);
+ $textColor: #d1c7bc;
+//  $titleColor: #333;
+ $titleColor: #d1c7bc;
 
  //LAYOUT
  $mainPadding: 10px;
  $mainMargin :  10px;
+ 

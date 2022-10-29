@@ -22,13 +22,15 @@
          width: 100%;
 
          &__title {
-            color: #fff;
-            text-align: center ;
-            font-size: 30px ;
-            font-weight: 800;
-            color: #fff;
             margin-bottom: 50px;
             margin-top: 20px;
+
+            h1 {
+                color: #fff;
+                text-align: center ;
+                font-size: 30px ;
+                font-weight: 700;
+            }
          }
 
          &__item {
@@ -71,11 +73,12 @@
             
             span {
                 color: #efff00;
-                font-size: $textFont;
+                font-size: $smallText;
                 font-weight: $textWeight;
 
             }
          }
+
          &__btn {
             margin-top: 60px;
             display: flex;
@@ -91,6 +94,8 @@
                 font-weight: $buttonWeight;
                 color: $whileColor;
                 border: none;
+                letter-spacing: 1px;
+
                 &:hover {
                     background-color: $primayHoverColor;
                 }
@@ -98,18 +103,18 @@
             }
          }
          
-
          &__register {
             margin-top: 20px;
             display: flex;
             justify-content: center;
             span {
                 color: #fff;
+                font-size: $smallText;
             }
             a {
                 margin-left: 10px;
                 color:#efff00;
-
+                font-size: $smallText;
             }
          }
      }

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { connect, useSelector } from 'react-redux';
 import './listProduct.scss'
 import * as actions from '../../store/actions/index'
+import {DoubleLeftOutlined, DoubleRightOutlined} from '@ant-design/icons';
 function ListProduct(props) {
 
     const listProducts = useSelector(state => state.product.listProducts);
@@ -33,7 +34,8 @@ function ListProduct(props) {
 
     return (
         <div className="container">
-            <div className="row hidden-md-up mg">
+            <p className="container__title">Danh sách sản phẩm</p>
+            <div className="container__content row hidden-md-up mg">
                 {
                     listRender && listRender.length > 0 ? (listRender.map((item, index) => {
                         return (<Card
@@ -48,10 +50,10 @@ function ListProduct(props) {
                     })) : null
 
                 }
-                <div>Page {pageNumber} </div>
-                <div>
-                    <button className="product-header-cta green-bg" style={{ marginRight: "5px" }} onClick={() => handlePrev()}>prev</button>
-                    <button className="product-header-cta green-bg" style={{ marginRight: "5px" }} onClick={() => handleNext()}>next</button>
+                <div className="list-product-footer">
+                    <button className="product-header-cta green-bg" style={{ marginRight: "5px" }} onClick={() => handlePrev()}><DoubleLeftOutlined /></button>
+                    <p className="list-product-footer__index">Page {pageNumber} </p>
+                    <button className="product-header-cta green-bg" style={{ marginRight: "5px" }} onClick={() => handleNext()}><DoubleRightOutlined /></button>
                 </div>
 
             </div>

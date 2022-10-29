@@ -17,7 +17,7 @@ const InputStyled = styled.div`
 export const InputCustom = (props) => {
   return (
     <InputStyled className='input-custom'>
-      <Input placeholder={props.placeholder} onChange = {props.handleChange} type = {props.inputType}/>
+      <Input.Password placeholder="input password" />
     </InputStyled>
   )
 }

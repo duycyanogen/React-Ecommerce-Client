@@ -1,6 +1,7 @@
 
 import './card.scss'
 const { Component } = require("react");
+// import { formatPrice } from '../../constant/temp';
 
 export default class Card extends Component {
     constructor(props) {
@@ -8,24 +9,29 @@ export default class Card extends Component {
 
     }
 
+
     render() {
         return (
-            <a href={'/products/' + this.props.id} className="col-md-2" onClick={this.props.onclick}>
-                <div className="card">
-                    <div className="card_img">
+            <a href={'/products/' + this.props.id} className="col-md-3 card-item" onClick={this.props.onclick}>
+                <div className="product-detail">
+                    <div>
+                      <div className="card_img">
                         <img src={this.props.imageURL} alt="" />
+                      </div>
                     </div>
-                    <div className="card_content">
-                        <div className="card_content-head">
-                            <p>{this.props.name}</p>
-
+                    <div className='flower-info'>
+                      <p className='product-name'>{this.props.name}</p>
+                      <div className="card_content">
+                        <div className='cart-content__detail'>
+                          <p>Giảm giá {this.props.discount}%</p>
+                          <p>{this.props.views} luợt xem</p>
                         </div>
-                        <span className='discount'>Giảm giá {this.props.discount}%</span>
-                        <span className='views'>{this.props.views} luợt xem</span>
-                        <span>
-                            <b>{this.props.price}đ</b>
-                        </span>
+                       {/* <span className='cart-content_price'>{this.props.price}đ</span> */}
+                       <span className='cart-content_price'>{Intl.NumberFormat('it-IT', { style : 'currency', currency:'VND'}).format(this.props.price)}</span>
+
                     </div>
+                    </div>
+                    
                 </div>
             </a>
         )

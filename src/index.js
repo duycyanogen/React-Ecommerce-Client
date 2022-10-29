@@ -9,6 +9,8 @@ import rootReducer from './store/reducers/rootReducer';
 import thunk from "redux-thunk"
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createStore, applyMiddleware } from 'redux';
+import 'antd/dist/antd.css';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 // const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
