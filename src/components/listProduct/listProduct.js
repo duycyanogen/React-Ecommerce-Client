@@ -55,7 +55,6 @@ function ListProduct(props) {
                     <p className="list-product-footer__index">Page {pageNumber} </p>
                     <button className="product-header-cta green-bg" style={{ marginRight: "5px" }} onClick={() => handleNext()}><DoubleRightOutlined /></button>
                 </div>
-
             </div>
         </div>
 

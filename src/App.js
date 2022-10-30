@@ -11,6 +11,7 @@ import Order from "./components/order/order"
 import Product from "./components/product/product";
 import { useSelector } from 'react-redux';
 import {UserAccount} from './components/userAccount/UserAccount'
+import { MyChart } from "./components/chart/MyChart";
 function App() {
   const userInfo = useSelector(state => state.user.userInfo);
   console.log(userInfo);
@@ -23,6 +24,8 @@ function App() {
       <Route path='/login' element={<Login />} />
       <Route path='/products/:id' element={<Layout><ProductDetail /></Layout>} />
       <Route path='/products' element={userInfo ? <Layout><Product /></Layout> : <Login />} />
+      <Route path='/statistics' element={(userInfo && userInfo.idRole == 1) ? <Layout><MyChart/></Layout> : <Login />} />
+      
     </Routes>
   );
 }

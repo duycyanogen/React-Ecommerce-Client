@@ -227,7 +227,8 @@
         &__menu {
             background-color: $contentColor;
             padding: 5px 5px 5px 5px;
-            height: 400px;
+            // height: 400px;
+            min-height: 400px;
             border-radius: 5px;
             &__title {
                 font-size: 16px;
@@ -286,7 +287,7 @@
     
             ul li a:hover,
             ul li a.active {
-                background-color: #bebebe79;
+                background-color: $contentColorHover;
                 color     : #fff;
             }
     
@@ -320,6 +321,11 @@
             }
         }
     }
-
-
+}
+.menu-item-active {
+    background-color: #bebebe79 !important;
+    border-right: 6px solid $primaryColor;
+    span {
+        // color: $primaryColor;
+    }
 }

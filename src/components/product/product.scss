@@ -1,3 +1,4 @@
+@import '../../constant/style.scss';
 $tablet: "screen and (max-width: 1023px)";
 $mobile: "screen and (max-width: 599px)";
 
@@ -125,10 +126,7 @@ $mobile: "screen and (max-width: 599px)";
                     margin-top: 5px;
                 }
 
-                &:hover {
-                    background: #fff;
-                }
-
+               
                 .product-table-plan-payment {
                     padding      : 15px 0;
                     background   : #f1f1f1;
@@ -138,24 +136,14 @@ $mobile: "screen and (max-width: 599px)";
                         padding: 5px 0;
                     }
 
-                    &:after {
-                        content   : "";
-                        width     : calc(100% - 30px);
-                        height    : 2px;
-                        position  : absolute;
-                        left      : 15px;
-                        bottom    : 0px;
-                        background: #f1f1f1;
-                    }
+                  
 
                     .product-plan-payment-container {
                         table {
                             width: 100%;
 
                             tr {
-                                &:hover {
-                                    background: #f1f1f1;
-                                }
+                              
                             }
 
                             th,
@@ -188,13 +176,7 @@ $mobile: "screen and (max-width: 599px)";
                 }
             }
 
-            &:hover {
-                background: #f1f1f1;
-
-                @media #{$tablet} {
-                    background: #fff;
-                }
-            }
+         
         }
 
         tr.product-table-header {
@@ -220,9 +202,7 @@ $mobile: "screen and (max-width: 599px)";
                 display: table-row;
             }
 
-            &:hover {
-                background: #ffffff;
-            }
+          
 
             &.product-table-mobile-bottom {
                 td {
@@ -287,15 +267,7 @@ $mobile: "screen and (max-width: 599px)";
         td {
             position: relative;
 
-            &:after {
-                content   : "";
-                width     : 100%;
-                height    : 2px;
-                position  : absolute;
-                left      : 0;
-                bottom    : -1px;
-                background: #f1f1f1;
-            }
+        
 
             img {
                 max-width : 130px;
@@ -305,14 +277,7 @@ $mobile: "screen and (max-width: 599px)";
         }
 
         td.product-table-icon {
-            &:after {
-                width: calc(100% - 15px);
-                right: 15px;
-
-                @media #{$tablet} {
-                    content: none;
-                }
-            }
+           
 
             i {
                 font-size: 24px;
@@ -323,18 +288,7 @@ $mobile: "screen and (max-width: 599px)";
             max-width: 160px;
             width    : percentage(160/1150);
 
-            @media #{$tablet} {
-                padding-bottom: 0;
-            }
-
-            &:after {
-                width: calc(100% - 15px);
-                left : 15px;
-
-                @media #{$tablet} {
-                    content: none;
-                }
-            }
+         
         }
 
         td.product-table-payment-detail {
@@ -374,9 +328,7 @@ $mobile: "screen and (max-width: 599px)";
     }
 
     .product-table-desktop {
-        @media #{$tablet} {
-            display: none !important;
-        }
+        color: $textColor;
     }
 
     .right-text-mobile {
@@ -433,4 +385,39 @@ $mobile: "screen and (max-width: 599px)";
             display: block;
         }
     }
+}
+
+.product-header-footer {
+    display: flex;
+    justify-content: space-between;
+
+    .product-page-index {
+        display: flex;
+        align-items: center;
+        width: fit-content;
+        
+        p {
+            margin: 0px 10px;
+            color: $textColor;
+        }
+        button {
+            background-color: none !important;
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+.product-table-content {
+    border-bottom: 1px solid $borderColor;
+    &:hover {
+        background-color: $contentColorHover !important;
+    };
+}
+  
+.product-page table.product-table-product tbody {
+    border: 1px solid $borderColor;
+}
+
+.product-table-desktop-money {
+    color: $primaryColor;
 }

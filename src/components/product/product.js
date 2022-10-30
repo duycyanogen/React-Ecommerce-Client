@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 import GuitarModal from "../guitarModal/guitarModal";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
+import {DoubleLeftOutlined, DoubleRightOutlined} from '@ant-design/icons';
+
 const Product = () => {
     const [productList, setProductList] = useState([]);
     const userInfo = useSelector(state => state.user.userInfo);
@@ -135,15 +137,15 @@ const Product = () => {
                                         <tr className="product-table-content" key={index}>
                                             <td className="product-table-image-info" style={{ textAlign: "center", verticalAlign: "middle" }}><img src={product.imageURL} /></td>
                                             <td className="bold-text red-text product-table-desktop" style={{ textAlign: "center", verticalAlign: "middle" }}>{product.name}</td>
-                                            <td className="product-table-desktop" style={{ textAlign: "center", verticalAlign: "middle" }}><span className="bold-text" >{product.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
+                                            <td className="product-table-desktop" style={{ textAlign: "center", verticalAlign: "middle" }}><span className="bold-text product-table-desktop-money" >{product.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
                                             </td>
                                             <td className="product-table-desktop" style={{ textAlign: "center", verticalAlign: "middle" }}>
                                                 <p>{product.discount}</p>
                                             </td>
                                             <td className="product-table-desktop" style={{ textAlign: "center", verticalAlign: "middle" }}>{product.contents}</td>
                                             <td className="product-table-icon red-text right-text-mobile" style={{ textAlign: "center", verticalAlign: "middle" }}><div>
-                                                <button className="product-header-cta orange-bg" style={{ marginBottom: "5px" }} onClick={() => updateProduct(product)}>Sửa</button>
-                                                <button className="product-header-cta red-bg" onClick={() => deleteProduct(product.id)}>Xóa</button></div></td>
+                                                <button className="primary-button" style={{ marginBottom: "5px" }} onClick={() => updateProduct(product)}>Sửa</button>
+                                                <button className="primary-button" onClick={() => deleteProduct(product.id)}>Xóa</button></div></td>
                                         </tr>
                                     )
 
@@ -153,17 +155,14 @@ const Product = () => {
                             </tbody>
                         </table>
                     </div>
-                    <div className="product-block-right">
-
                         <div className="product-header-footer">
-                            <button href="#" className="product-header-cta green-bg" target="_blank" onClick={() => showModal()}>Thêm mới sản phẩm</button>
+                            <div className="product-page-index">
+                               <button className="product-header-cta" style={{ marginRight: "5px" }} onClick={() => handlePrev()}><DoubleLeftOutlined /></button>
+                               <p className="list-product-footer__index">Page {pageNumber} </p>
+                               <button className="product-header-cta" style={{ marginRight: "5px" }} onClick={() => handleNext()}><DoubleRightOutlined /></button>
+                            </div>
+                            <button href="#" className="primary-button" target="_blank" onClick={() => showModal()}>Thêm mới sản phẩm</button>
                         </div>
-                    </div>
-                    <div>Page {pageNumber} </div>
-                    <div style={{ marginBottom: "20px" }}>
-                        <button className="product-header-cta green-bg" style={{ marginRight: "5px" }} onClick={() => handlePrev()}>prev</button>
-                        <button className="product-header-cta green-bg" onClick={() => handleNext()}>next</button>
-                    </div>
                 </div>
                 <GuitarModal
                     productInfo={productInfo}

@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import GuitarModal from '../guitarModal/guitarModal';
 import { React, useState, useEffect } from "react";
-import { connect, useSelector } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Menu, Space } from 'antd';
 import { DropdownCustom } from '../commonModules/DropdownCustom';
@@ -13,9 +13,14 @@ import { UnorderedListOutlined, SettingOutlined} from '@ant-design/icons';
 import { SelectCustom } from '../commonModules/SelectCustom';
 import { Link } from 'react-router-dom';
 import { Footer } from '../footer/Footer';
-export default function Header(props) {
+import { updateActivePage } from '../../store/slice/activePage';
+import { activePageSelector } from '../../store/selectors';
 
+export default function Header(props) {
     const userInfo = useSelector(state => state.user.userInfo);
+    const activePage = useSelector(activePageSelector);
+    console.log(activePage);
+    const dispatch = useDispatch();
     const [isOpenChildModal, setIsOpenChildModal] = useState(false);
 
     const showModal = () => {
@@ -128,36 +133,39 @@ export default function Header(props) {
                     <div className='sidebar__menu'>
                       <p className='sidebar__menu__title'>Menu</p>
                       <ul>
-                        <li>
-                            {/* <a  href='http://localhost:3000'>
-                             <span className="icon"><UnorderedListOutlined/></span>
-                             <span className="title">Danh sách sản phẩm</span>
-                            </a> */}
-                            <Link to="/">
+                        <li className={activePage == 'listProduct' ? 'menu-item-active' : ''}>
+                            <Link to="/" onClick={() => {dispatch(updateActivePage("listProduct"))}}>
                               <span className="icon"><UnorderedListOutlined/></span>
                               <span className="title">Danh sách sản phẩm</span>
                             </Link>
                         </li>
-                        <li>
-                          <Link to="/cart">
+                        <li className={activePage == 'cart' ? 'menu-item-active' : ''}>
+                          <Link to="/cart" onClick={() => {dispatch(updateActivePage("cart"))}}>
                             <span className="icon"><i className="fas fa-book"></i></span>
                             <span className="title">Giỏ hàng</span>
                           </Link></li>
-                        <li>
-                           <Link to="/order">
+                        <li className={activePage == 'order' ? 'menu-item-active' : ''}>
+                           <Link to="/order" onClick={() => {dispatch(updateActivePage("order"))}}>
                             <span className="icon"><i className="fas fa-file-video"></i></span>
                             <span className="title">Đơn hàng</span>
                            </Link>
                         </li>{
-                            userInfo && userInfo.idRole == 1 ? <li><a href="/products">
-                                <span className="icon"><i className="fas fa-volleyball-ball"></i></span>
-                                <span className="title">Quản lý sản phẩm</span>
-                            </a></li> : null
+                        ( userInfo && userInfo.idRole == 1) && <li className={activePage == 'products' ? 'menu-item-active' : ''}>
+                          <Link to="/products" onClick={() => {dispatch(updateActivePage("products"))}}>
+                            <span className="icon"><i className="fas fa-volleyball-ball"></i></span>
+                            <span className="title">Quản lý sản phẩm</span>
+                          </Link></li>
                         }
-                        <li>
-                            <Link  to='/user'>
+                        <li className={activePage == 'user' ? 'menu-item-active' : ''}>
+                            <Link  to='/user' onClick={() => {dispatch(updateActivePage("user"))}}>
                              <span className="icon"><SettingOutlined /></span>
                              <span className="title">Quản lí tài khoản</span>
+                            </Link>
+                        </li>
+                        <li className={activePage == 'statistics' ? 'menu-item-active' : ''}>
+                            <Link  to='/statistics' onClick={() => {dispatch(updateActivePage("statistics"))}}>
+                             <span className="icon"><SettingOutlined /></span>
+                             <span className="title">Thống kê</span>
                             </Link>
                         </li>
                       </ul>
