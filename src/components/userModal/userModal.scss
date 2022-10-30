@@ -1,3 +1,4 @@
+@import '../../constant/style.scss';
 .header {
     text-align: center;
     font-size : 22px;
@@ -8,15 +9,18 @@
     margin : 10px;
 
     .input {
-        :focus-visible {
-            outline: none;
+        :focus{
+            outline: none !important;
+            background-color:#939393 !important;
         }
 
         flex         : 1 1;
-        border       : 1px solid #bbb;
         border-radius: 20px;
         height       : 30px;
         margin-top   : 10px;
+        border: 0px !important;
+        outline: none !important;
+        padding-left: 10px;
 
     }
 
@@ -45,14 +49,24 @@
         color           : white;
         height          : 40px;
         background-color: #F05123;
+        background-color: $primaryColor;
         border          : none;
         border-radius   : 20px;
         margin          : 20px 10px;
     }
-
+    .btn-regis {
+        background-color: $primaryColor !important;
+    }
+    .btn-regis,
     .btn-cancel {
         background-color: #DC3545;
     }
 
 
+}
+
+//đè
+.modal-content.modal {
+    background-color: #939393;
+    border: 0px;
 }

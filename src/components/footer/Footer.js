@@ -7,11 +7,16 @@ import { InstagramOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom";
 
 const FooterStyled = styled.div`
-  background-color: #2b2f3b ;
+  /* background-color: #2b2f3b ; */
+  background-image: url(../../image/background-footer.jpg);
+  background-size: cover ;
+  background-color: #2b2f3b7a;
+  background-blend-mode: overlay;
   width: 100%;
   display: flex;
   flex-direction:column ;
   align-items: center ;
+  align-items: flex-end ;
   padding: 20px;
   padding-bottom: 40px;
   position: relative ;
@@ -19,10 +24,17 @@ const FooterStyled = styled.div`
   border-radius: 12px ;
   margin-bottom: 30px;
 
+
   .footer__logo {
     display: flex;
     flex-direction: column ;
     align-items: center ;
+    .footer-title {
+      font-size: 28px ;
+      font-weight: 700 ;
+      color: #fff;
+      letter-spacing: 5px;
+    }
     img {
         width: 200px;
         margin-bottom: 20px;
@@ -30,14 +42,17 @@ const FooterStyled = styled.div`
     }
 
   }
+ 
   .footer__contact {
     display: flex ;
     align-items: center ;
     margin-bottom: 40px;
+    padding-top: 40px;
     a {
         margin: 0px 10px;
         font-size: 30px ;
         color: #0089ff;
+        color: #fff;
     }
   }
   .footer__end {
@@ -49,8 +64,7 @@ export const Footer = () => {
   return (
     <FooterStyled>
             <div className="footer__logo">
-                 <img src="../../image/app-logo.png" alt=""/>
-                 <p className='primary-title'>Flower Store</p>
+                 <p className='primary-title footer-title'>Flower Store</p>
             </div>
             <div className="footer__contact">
                 <a href=""><FacebookOutlined/></a>

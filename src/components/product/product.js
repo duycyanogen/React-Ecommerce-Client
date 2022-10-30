@@ -177,7 +177,7 @@ const Product = () => {
                 <ToastContainer />
             </div>
 
-        ) : <div>Chưa có sản phẩm nào</div>
+        ) : <p className = 'primary-title'>Chưa có sản phẩm nào</p>
 
     )
 }

@@ -93,16 +93,16 @@ function Login(props) {
                 <div className="login-content">
                     <div className="login-content__title">
                         <h1>
-                            Login
+                            Đăng nhập
                         </h1>
                     </div>
                     <div className="login-content__item">
                         <span className=''>Tên đăng nhập</span>
-                        <input type="text" className="" id='txtUserName' value={userName} onChange={(e) => handleChangeUserName(e)} />
+                        <input type="text" className="primary-text" id='txtUserName' value={userName} onChange={(e) => handleChangeUserName(e)} />
                     </div>
                     <div className="login-content__item">
                         <span className='' id='txtPassword' >Mật khẩu</span>
-                        <input type="password" className="" value={password} onChange={(e) => handleChangePassword(e)} />
+                        <input type="password" className="primary-text" value={password} onChange={(e) => handleChangePassword(e)} />
                     </div>
                     <div className="login-content__err" style={{ display: errorMessage.length > 0 ? "flex" : "none" }}>
                         <span className='err-message'>{errorMessage}</span>
