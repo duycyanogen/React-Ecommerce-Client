@@ -162,12 +162,12 @@ export default function Header(props) {
                              <span className="title">Quản lí tài khoản</span>
                             </Link>
                         </li>
-                        <li className={activePage == 'statistics' ? 'menu-item-active' : ''}>
+                       {( userInfo && userInfo.idRole == 1) && <li className={activePage == 'statistics' ? 'menu-item-active' : ''}>
                             <Link  to='/statistics' onClick={() => {dispatch(updateActivePage("statistics"))}}>
                              <span className="icon"><SettingOutlined /></span>
                              <span className="title">Thống kê</span>
                             </Link>
-                        </li>
+                        </li>}
                       </ul>
                     </div>
                    
