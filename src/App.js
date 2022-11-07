@@ -10,23 +10,22 @@ import Cart from "./components/cart/cart";
 import Order from "./components/order/order"
 import Product from "./components/product/product";
 import { useSelector } from 'react-redux';
-import {UserAccount} from './components/userAccount/UserAccount'
+import { UserAccount } from './components/userAccount/UserAccount'
 import { MyChart } from "./components/commonModules/chart/MyChart";
 import { StatisticsPage } from "./components/statisticsPage/StatisticsPage";
 function App() {
   const userInfo = useSelector(state => state.user.userInfo);
-  console.log(userInfo);
   return (
     <Routes>
       <Route path='/' element={<Layout><ListProduct /></Layout>} />
       <Route path='/cart' element={userInfo ? <Layout><Cart /></Layout> : <Login />} />
       <Route path='/order' element={userInfo ? <Layout><Order /></Layout> : <Login />} />
-      <Route path='/user' element={userInfo ? <Layout><UserAccount/></Layout> : <Login />} />
+      <Route path='/user' element={userInfo ? <Layout><UserAccount /></Layout> : <Login />} />
       <Route path='/login' element={<Login />} />
       <Route path='/products/:id' element={<Layout><ProductDetail /></Layout>} />
       <Route path='/products' element={userInfo ? <Layout><Product /></Layout> : <Login />} />
-      <Route path='/statistics' element={(userInfo && userInfo.idRole == 1) ? <Layout><StatisticsPage/></Layout> : <Login />} />
-      
+      <Route path='/statistics' element={(userInfo && userInfo.idRole == 1) ? <Layout><StatisticsPage /></Layout> : <Login />} />
+
     </Routes>
   );
 }

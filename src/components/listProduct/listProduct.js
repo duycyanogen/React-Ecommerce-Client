@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { connect, useSelector } from 'react-redux';
 import './listProduct.scss'
 import * as actions from '../../store/actions/index'
-import {DoubleLeftOutlined, DoubleRightOutlined} from '@ant-design/icons';
+import { DoubleLeftOutlined, DoubleRightOutlined } from '@ant-design/icons';
 function ListProduct(props) {
 
     const listProducts = useSelector(state => state.product.listProducts);
@@ -12,9 +12,6 @@ function ListProduct(props) {
     const [limitNumber] = useState(12);
     const currentPageNumber = (pageNumber * limitNumber) - limitNumber;
     const listRender = listProducts?.slice(currentPageNumber, currentPageNumber + limitNumber);
-    console.log("List All", listProducts);
-    console.log("List paginate", listRender);
-
     const handlePrev = () => {
         if (pageNumber === 1) return
         setPageNumber(pageNumber - 1)

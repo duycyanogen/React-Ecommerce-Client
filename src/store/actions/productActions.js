@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes'
-import { getAll } from '../../services/guitarServices';
+import { getAll } from '../../services/flowerService';
 // export const fetchProductStart = () => ({
 //     type: actionTypes.FETCH_PRODUCT_START
 // })
@@ -10,8 +10,8 @@ export const getAllProduct = () => {
 
             dispatch(fetchProductStart());
             await getAll().then(res => {
-                //console.log("Response data", res.data.data);
-                dispatch(fetchProductStop(res.data.data))
+                console.log(res.data.object)
+                dispatch(fetchProductStop(res.data.object))
             })
 
         } catch (error) {

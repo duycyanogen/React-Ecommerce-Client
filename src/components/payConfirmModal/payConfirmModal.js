@@ -51,7 +51,6 @@ export default function PayConfirmModal(props) {
                 amount: item.quantity * item.price * (100 - item.discount) / 100
             }
         })
-        // console.log(listCartTemp);
         orderRequest.listCart = listCartTemp;
         orderRequest.userID = props.payUserInfo?.userID;
         orderRequest.customerName = name;
@@ -62,10 +61,8 @@ export default function PayConfirmModal(props) {
         orderRequest.message = note;
         orderRequest.status = 0;
         orderRequest.note = note;
-        //console.log("req", orderRequest);
         try {
             await handleAddNewTransaction(orderRequest).then(res => {
-                console.log(res);
                 showToastSuccess("Đặt hàng thành công");
                 toggle();
                 fetch();
@@ -78,15 +75,11 @@ export default function PayConfirmModal(props) {
                 }
             }
         }
-
-        //console.log("req", JSON.stringify(orderRequest));
     }
 
 
     return (
-        // <div style={{
-        //     display: 'block', width: 700, padding: 30, zIndex: 9999
-        // }}>
+
         <Modal isOpen={props.isOpen}
             toggle={() => toggle()}
             modalTransition={{ timeout: 500 }}

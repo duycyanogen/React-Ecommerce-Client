@@ -6,7 +6,7 @@ import {
     ModalBody
 } from "reactstrap"
 import './guitarModal.scss'
-import { handleAddNewGuitar, handleUpdateGuitar } from '../../services/guitarServices'
+import { handleAddNewGuitar, handleUpdateGuitar } from '../../services/flowerService'
 const { Component } = require("react");
 
 export default class GuitarModal extends Component {
@@ -92,7 +92,6 @@ export default class GuitarModal extends Component {
             let input = this.state;
             if (input.id > 0)
                 await handleUpdateGuitar(input).then(res => {
-                    console.log(res.data);
                     this.showToastSuccess(res.data.guitarData.message);
                 })
             else
@@ -131,9 +130,6 @@ export default class GuitarModal extends Component {
                 previewUrl: objectUrl
             })
         }
-
-        //this.setState({ [e.target.name]: e.target.files[0] })
-        //console.log(this.state);
     }
 
     handleCancelImage = (e) => {
@@ -145,12 +141,9 @@ export default class GuitarModal extends Component {
     }
 
     render() {
-        //const { id, name, price, contents, discount, imageURL } = this.props.productInfo;
-        //console.log(id);
+
         return (
-            // <div style={{
-            //     display: 'block', width: 700, padding: 30, zIndex: 9999
-            // }}>
+
             <Modal isOpen={this.props.isOpen}
                 toggle={() => this.toggle()}
                 modalTransition={{ timeout: 500 }}
