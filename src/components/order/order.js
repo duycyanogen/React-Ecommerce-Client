@@ -21,11 +21,7 @@ const Order = () => {
 
 
     useEffect(() => {
-<<<<<<< HEAD
         console.log(orderList.find(x => x.transactionID == 8));
-=======
-
->>>>>>> d258e081971aa67a94233179f29fb4d99f648bb9
         async function fetchorder() {
             await getOrder(userInfo.id).then(res => {
                 let listTrans = res.data.orderData;
