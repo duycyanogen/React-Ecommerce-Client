@@ -6,6 +6,7 @@ import GuitarModal from "../guitarModal/guitarModal";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import {DoubleLeftOutlined, DoubleRightOutlined} from '@ant-design/icons';
+import { ContainerTitle } from "../ContainerTitle";
 
 const Product = () => {
     const [productList, setProductList] = useState([]);
@@ -117,6 +118,7 @@ const Product = () => {
     return (
         listRender && listRender.length > 0 ? (
             <div className="product-page">
+                <ContainerTitle title = 'Quản lý sản phẩm'/>
                 <div className="product-page-container">
 
                     <div className="product-page-table">

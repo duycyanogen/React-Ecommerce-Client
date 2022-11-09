@@ -6,7 +6,35 @@ $mobile: "screen and (max-width: 599px)";
     color      : #3a3a3a;
     font-family: "Poppins", sans-serif;
     font-size  : 14px;
-
+    
+    .header {
+        display: flex ;
+        align-items: center ;
+        margin-bottom: 20px;
+       
+        button {
+          background: transparent ;
+          border: none; 
+          display: flex;
+          align-items: center ;
+          
+          span {
+            padding: 0px;
+           
+            svg {
+            color: #d1c7bc;
+            font-size: 18;
+            font-weight :  600;
+            color: #f73173;
+            }
+          }
+        }
+        
+        .header-title{
+          margin-bottom: 0px !important; 
+        }
+      }
+      
     .order-page-container {
         max-width: 1150px;
         margin   : 0 auto;

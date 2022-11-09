@@ -139,11 +139,11 @@ export default function Header(props) {
                               <span className="title">Danh sách sản phẩm</span>
                             </Link>
                         </li>
-                        <li className={activePage == 'cart' ? 'menu-item-active' : ''}>
+                        {(userInfo && userInfo.idRole != 1) && <li className={activePage == 'cart' ? 'menu-item-active' : ''}>
                           <Link to="/cart" onClick={() => {dispatch(updateActivePage("cart"))}}>
                             <span className="icon"><i className="fas fa-book"></i></span>
                             <span className="title">Giỏ hàng</span>
-                          </Link></li>
+                          </Link></li>}
                         <li className={activePage == 'order' ? 'menu-item-active' : ''}>
                            <Link to="/order" onClick={() => {dispatch(updateActivePage("order"))}}>
                             <span className="icon"><i className="fas fa-file-video"></i></span>

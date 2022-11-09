@@ -8,18 +8,22 @@ import { ToastContainer, toast } from 'react-toastify';
 import { handleDeleteTransaction } from '../../services/transactionService'
 import { TableCustom } from "../commonModules/TableCustom";
 import "../../assets/img/guitar.jpg"
+import { useNavigate } from "react-router-dom";
+import { ArrowLeftOutlined } from '@ant-design/icons';
+import { Container } from "reactstrap";
+import { ContainerTitle } from "../ContainerTitle";
+
 const Order = () => {
+    const navigate = useNavigate();
     const [orderList, setOrderList] = useState([]);
     const userInfo = useSelector(state => state.user.userInfo);
     const [listUniqueTrans, setListUniqueTrans] = useState([]);
 
 
     useEffect(() => {
-        console.log("Đang fetch API nè!");
         console.log(orderList.find(x => x.transactionID == 8));
         async function fetchorder() {
             await getOrder(userInfo.id).then(res => {
-                //console.log("Orders", );
                 let listTrans = res.data.orderData;
                 console.log(listTrans);
                 let ids = [];
@@ -192,7 +196,7 @@ const Order = () => {
     return (
         orderList && orderList.length > 0 ? (
             <div className="order-page">
-                <p className="primary-title">Đơn hàng của bạn</p>
+                <ContainerTitle title = 'Đơn hàng của bạn'/>
                 <div className="order-page-container">
                     {/* {listUniqueTrans && listUniqueTrans.length > 0} */}
 

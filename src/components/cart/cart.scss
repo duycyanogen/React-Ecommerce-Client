@@ -378,6 +378,33 @@ $mobile: "screen and (width: 599px)";
     padding: 30px;
     background-color: $contentColor;
     border-radius: $borderRadius;
+    .header {
+        display: flex ;
+        align-items: center ;
+        margin-bottom: 20px;
+       
+        button {
+          background: transparent ;
+          border: none; 
+          display: flex;
+          align-items: center ;
+          
+          span {
+            padding: 0px;
+           
+            svg {
+            color: #d1c7bc;
+            font-size: 18;
+            font-weight :  600;
+            color: #f73173;
+            }
+          }
+        }
+        
+        .header-title{
+          margin-bottom: 0px !important; 
+        }
+      }
     .cart-page-table {
         width: 100%;
         display: flex;

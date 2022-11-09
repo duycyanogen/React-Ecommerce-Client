@@ -157,24 +157,64 @@ export default class GuitarModal extends Component {
                 centered={true}>
                 <ModalBody>
                     <div className='header'>{this.state.id > 0 ? "Cập nhật thông tin sản phẩm" : "Thêm mới sản phẩm"}</div>
-                    <div className='field'>
+                    <div className='container-content'>
+                      <div className='field'>
                         <label className='label'>Tên đàn</label>
                         <input type="text" className="input" name='name' value={this.state.name} onChange={(e) => this.handleChangeInput(e)} />
-                    </div>
-                    <div className='field'>
+                      </div>
+                      <div className='field'>
                         <label className='label' >Giá</label>
                         <input type="text" className="input" name='price' value={this.state.price} onChange={(e) => this.handleChangeInput(e)} />
-                    </div>
-                    <div className='field'>
+                      </div>
+                      <div className='field'>
                         <label className='label' >Mô tả</label>
                         <input type="text" className="input" name='contents' value={this.state.contents} onChange={(e) => this.handleChangeInput(e)} />
-                    </div>
-                    <div className='field'>
+                      </div>
+                      <div className='field'>
                         <label className='label' >Giảm giá (%)</label>
                         <input type="text" className="input" name='discount' value={this.state.discount} onChange={(e) => this.handleChangeInput(e)} />
-                    </div>
-                    <div className='field'>
+                      </div>
+                      <div className='field'>
                         <div className='container'>
+                            <div className = 'img-block'>
+                                <div className='img-block__left'>
+                                  <label id="image-preview" htmlFor="file" className='label' >
+                                  {this.state.file ?
+                                    (<Fragment>
+                                        <img src={this.state.previewUrl}></img>
+                                        <div className='file-name'>{this.state.file.name}</div>
+                                        <span className='close-btn' onClick={(e) => this.handleCancelImage(e)}><i class="fa-solid fa-xmark"></i></span>
+                                    </Fragment>) : (<Fragment>
+                                        <div className='content'>
+                                            <div className='icon'>
+                                                <i className="fa fa-cloud-upload icon" aria-hidden="true"></i>
+                                            </div>
+                                            <div className='text'>Chưa có file nào được chọn</div>
+                                        </div>
+                                    </Fragment>)}
+                                  </label>
+                                </div>
+                                <div className='img-block__right'>
+                                  <div className='img-block__right__top'>
+                                    <label id="image-preview" htmlFor="file" className='label' >
+                                    {this.state.file ?
+                                    (<Fragment>
+                                        <img src={this.state.previewUrl}></img>
+                                        <div className='file-name'>{this.state.file.name}</div>
+                                        <span className='close-btn' onClick={(e) => this.handleCancelImage(e)}><i class="fa-solid fa-xmark"></i></span>
+                                    </Fragment>) : (<Fragment>
+                                        <div className='content'>
+                                            <div className='icon'>
+                                                <i className="fa fa-cloud-upload icon" aria-hidden="true"></i>
+                                            </div>
+                                            <div className='text'>Chưa có file nào được chọn</div>
+                                        </div>
+                                    </Fragment>)}
+                                    </label>
+                                  </div>
+                                  <div className='img-block__right__bottom'></div>
+                                </div>
+                            </div>
                             <label id="image-preview" htmlFor="file" className='label' >
                                 {this.state.file ?
                                     (<Fragment>
@@ -192,10 +232,12 @@ export default class GuitarModal extends Component {
                             </label>
                         </div>
                         <input type="file" className="input" name='file' id="file" style={{ display: "none" }} onChange={(e) => this.handleChangeFile(e)} />
+                      </div>
                     </div>
+                   
                     <div className='button-bar'>
-                        <button className='btn-regis' onClick={() => this.handleAddNewGuitar()}>{this.props.productInfo?.id > 0 ? "Cập nhật" : "Thêm mới"}</button>
-                        <button className='btn-cancel' onClick={() => this.toggle()}>Thoát</button>
+                        <button className='primary-button' onClick={() => this.toggle()}>Thoát</button>
+                        <button className='primary-button' onClick={() => this.handleAddNewGuitar()}>{this.props.productInfo?.id > 0 ? "Cập nhật" : "Thêm mới"}</button>
                     </div>
                 </ModalBody>
             </Modal>

@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import {InputItem} from '../commonModules/InputItem';
 import '../../constant/style.scss'
 import { useNavigate } from 'react-router-dom';
+import { ArrowLeftOutlined } from '@ant-design/icons';
+import { ContainerTitle } from '../ContainerTitle';
 
 const UserAccountStyled = styled.div`
   .container {
@@ -22,17 +24,20 @@ const UserAccountStyled = styled.div`
         background-color:   #1f2028;
         border: 0px;
         color:  #d1c7bc;
-        &::placeholder {
+          &::placeholder {
           color: #d1c7bc8c;
-        }
-        
-      }
+          }
+       }
       }
 
       .ant-input {
         border-radius: 10px;
       }
     }
+  }
+
+  .change-pass-title {
+    margin-top: 30px;
   }
 
   .btn-block {
@@ -49,17 +54,26 @@ export const  UserAccount = () => {
   const navigate = useNavigate();
   return (
     <UserAccountStyled>
-         <p className='primary-title'>Quản lí tài khoản</p>
+         <ContainerTitle title = 'Quản lí tài khoản'/>
+         <p className='primary-title'>Thông tin cá nhân</p>
          <div className='container'>
            <InputItem title = 'Email' placeholder = 'Email' className = 'container__item' onChange = {()=> {}}/>
-           <InputItem title = 'Mật khẩu' placeholder = '' className = 'container__item' inputType= 'password'  onChange = {()=> {}}/>
            <InputItem title = 'Tên' placeholder = 'Tên' className = 'container__item'  onChange = {()=> {}}/>
            <InputItem title = 'Số điện thoại' placeholder = 'Số điện thoại' className = 'container__item'  onChange = {()=> {}}/>
            <InputItem title = 'Địa chỉ' placeholder = 'Địa chỉ' className = 'container__item'  onChange = {()=> {}}/>
          </div>
          <div className='btn-block'>
-           <button className='primary-button' onClick = {()=> {navigate(-1)}}>Hủy</button>
            <button className='primary-button'>Cập nhật tài khoản</button>
+         </div>
+
+         <p className='primary-title change-pass-title'>Đổi mật khẩu</p>
+         <div className='container'>
+           <InputItem title = 'Nhập mật khẩu hiện tại' placeholder = '' className = 'container__item' inputType= 'password'  onChange = {()=> {}}/>
+           <InputItem title = 'Nhập mật khẩu mới' placeholder = '' className = 'container__item' inputType= 'password'  onChange = {()=> {}}/>
+           <InputItem title = 'Nhập lại mật khẩu mới' placeholder = '' className = 'container__item' inputType= 'password'  onChange = {()=> {}}/>
+         </div>
+         <div className='btn-block'>
+           <button className='primary-button' onClick = {()=> {}}>Cập nhật mật khẩu</button>
          </div>
     </UserAccountStyled>
   )

@@ -4,6 +4,7 @@ import  {ChartItem} from '../commonModules/chart/ChartItem';
 import { MyChart } from '../commonModules/chart/MyChart'
 import { DatePickerCustom } from '../commonModules/DatePickerCustom';
 import { SelectCustom } from '../commonModules/SelectCustom';
+import { ContainerTitle } from '../ContainerTitle';
 
 const StatisticsPageStyled = styled.div`
   .date-picker-custom {
@@ -38,12 +39,14 @@ export const  StatisticsPage = () => {
    
   return (
     <StatisticsPageStyled>
+      <ContainerTitle title = 'Thống kê'/>
       <p className='primary-title'>Chart 1</p>
       <ChartItem dataChart = {dataChart}/>
-      <p className='primary-title' style={{marginTop: '30px'}}>Chart 2</p>
+      <p className='primary-title' style={{marginTop: '40px'}}>Chart 2</p>
       <ChartItem dataChart = {dataChart}/>
-      <p className='primary-title' style={{marginTop: '30px'}}>Chart 3</p>
+      <p className='primary-title' style={{marginTop: '40px'}}>Chart 3</p>
       <ChartItem dataChart = {dataChart}/>
+      <br/>
     </StatisticsPageStyled>
   )
 }

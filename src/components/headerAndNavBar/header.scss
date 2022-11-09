@@ -54,6 +54,8 @@
                 width        : 420px;
                 display: flex;
                 justify-content: space-between;
+                align-items: center;
+                position: relative;
 
                 .search-input {
                     width: 100%;
@@ -63,23 +65,19 @@
                     outline    : none;
                     padding-left: 20px;
                     font-family: 'Lexend Deca', sans-serif;
-                    border-top-left-radius: 20px;
-                    border-bottom-left-radius: 20px;
+                    border-radius: 20px;
                     font-size: $textFont;
                     background-color: $backgroundInput;
                     color: $textColor;
                 }
                 button {
-                    height: 100%;
-                    width: 80px;
+                    position: absolute;
+                    right: 5px;
+                    height: 34px;
+                    width: 34px;
                     border: 0px;
-                    border-top-right-radius: 20px;
-                    border-bottom-right-radius: 20px;
-                    background-color: $primaryColor;
+                    background-color: transparent;
 
-                    &:hover {
-                        background-color: $primayHoverColor;
-                    }
                     
                     i {
                         font-size: $titleFont;

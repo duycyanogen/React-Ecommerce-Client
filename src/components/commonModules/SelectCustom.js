@@ -3,7 +3,6 @@ import { Select } from 'antd';
 import styled from "styled-components";
 
 const SelectStyled = styled.div`
-    width: 100% !important; 
     
     /* .ant-select {
         height: 100% !important;

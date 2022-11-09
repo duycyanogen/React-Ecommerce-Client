@@ -1,8 +1,19 @@
 import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
 import { DatePickerCustom } from '../DatePickerCustom'
 import { SelectCustom } from '../SelectCustom'
 import { MyChart } from './MyChart'
 
+const ChartItemStyled = styled.div`
+    width: 60%;
+    .chart-option {
+        width: 100%;
+        display: flex;
+        .date-picker-custom {
+            margin-right: 30px;
+        }
+    }
+`
 const dataSelect  = [
     {
         value: 'Bar chart'
@@ -45,10 +56,12 @@ export const ChartItem = (props) => {
             };
         }
   return (
-    <div>
+    <ChartItemStyled>
+      <div className='chart-option'>
          <DatePickerCustom className='date-picker-custom'/>
          <SelectCustom dataSelect = {dataSelect} getValue = {getValue}/>
-         <MyChart dataChart= {dataChart} labelChart = 'label 1' chartType = {chartType}/>
-    </div>
+      </div>
+      <MyChart dataChart= {dataChart} labelChart = 'label 1' chartType = {chartType}/>
+    </ChartItemStyled>
   )
 }

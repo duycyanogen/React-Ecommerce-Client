@@ -5,7 +5,12 @@ import { useSelector } from 'react-redux';
 import PayConfirmModal from "../payConfirmModal/payConfirmModal";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
+import { ArrowLeftOutlined } from '@ant-design/icons';
+import { useNavigate } from "react-router-dom";
+import { ContainerTitle } from "../ContainerTitle";
+
 const Cart = () => {
+    const navigate  = useNavigate();
     const [cartList, setCartList] = useState([]);
     const [fetching, setFetching] = useState(false)
     const userInfo = useSelector(state => state.user.userInfo);
@@ -88,7 +93,7 @@ const Cart = () => {
     };
     return (
         <div className="cart-container">
-             <p className="primary-title">Giỏ hàng</p>
+            <ContainerTitle title = 'Giỏ hàng'/>
             { cartList && cartList.length > 0 ? (
             <div className="cart-page">
                 <div className="cart-page-container">

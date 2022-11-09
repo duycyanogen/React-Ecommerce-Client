@@ -7,7 +7,7 @@ import Chart from 'chart.js/auto';
 
 
 const MyChartStyled = styled.div`
-    width: 600px;
+    width: 100%;
 `;
 
 //props: 
@@ -42,7 +42,7 @@ export const  MyChart = (props) => {
                   "#f3ba2f",
                   "#fff",
             ],
-            borderColor: "black",
+            borderColor: '#f3ba2f',
             borderWidth: 2,
           },
         ],
