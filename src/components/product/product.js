@@ -1,12 +1,15 @@
 import { React, useState, useEffect } from "react";
 import './product.scss'
-import { getAll, handleDeleteGuitar } from '../../services/guitarServices'
+import { getAll, handleDeleteGuitar } from '../../services/flowerService'
 import { useSelector } from 'react-redux';
 import GuitarModal from "../guitarModal/guitarModal";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
+
 import {DoubleLeftOutlined, DoubleRightOutlined} from '@ant-design/icons';
 import { ContainerTitle } from "../ContainerTitle";
+
+
 
 const Product = () => {
     const [productList, setProductList] = useState([]);
@@ -27,10 +30,11 @@ const Product = () => {
     }
 
     useEffect(() => {
-
+        debugger;
         async function fetchProduct() {
             await getAll().then(res => {
-                setProductList(res.data.data.sort((a, b) => {
+                console.log(res);
+                setProductList(res.data.object.sort((a, b) => {
                     return - a.id + b.id
                 }));
             });
@@ -48,7 +52,7 @@ const Product = () => {
     const fetch = async () => {
         showToastSuccess("Đang fetch API nè!");
         await getAll().then(res => {
-            setProductList(res.data.data.sort((a, b) => {
+            setProductList(res.data.object.sort((a, b) => {
                 return - a.id + b.id
             }));
         });
@@ -157,14 +161,14 @@ const Product = () => {
                             </tbody>
                         </table>
                     </div>
-                        <div className="product-header-footer">
-                            <div className="product-page-index">
-                               <button className="product-header-cta" style={{ marginRight: "5px" }} onClick={() => handlePrev()}><DoubleLeftOutlined /></button>
-                               <p className="list-product-footer__index">Page {pageNumber} </p>
-                               <button className="product-header-cta" style={{ marginRight: "5px" }} onClick={() => handleNext()}><DoubleRightOutlined /></button>
-                            </div>
-                            <button href="#" className="primary-button" target="_blank" onClick={() => showModal()}>Thêm mới sản phẩm</button>
+                    <div className="product-header-footer">
+                        <div className="product-page-index">
+                            <button className="product-header-cta" style={{ marginRight: "5px" }} onClick={() => handlePrev()}><DoubleLeftOutlined /></button>
+                            <p className="list-product-footer__index">Page {pageNumber} </p>
+                            <button className="product-header-cta" style={{ marginRight: "5px" }} onClick={() => handleNext()}><DoubleRightOutlined /></button>
                         </div>
+                        <button href="#" className="primary-button" target="_blank" onClick={() => showModal()}>Thêm mới sản phẩm</button>
+                    </div>
                 </div>
                 <GuitarModal
                     productInfo={productInfo}
@@ -178,7 +182,7 @@ const Product = () => {
                 <ToastContainer />
             </div>
 
-        ) : <p className = 'primary-title'>Chưa có sản phẩm nào</p>
+        ) : <p className='primary-title'>Chưa có sản phẩm nào</p>
 
     )
 }

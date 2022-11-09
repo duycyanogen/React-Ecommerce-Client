@@ -21,11 +21,14 @@ const Order = () => {
 
 
     useEffect(() => {
+<<<<<<< HEAD
         console.log(orderList.find(x => x.transactionID == 8));
+=======
+
+>>>>>>> d258e081971aa67a94233179f29fb4d99f648bb9
         async function fetchorder() {
             await getOrder(userInfo.id).then(res => {
                 let listTrans = res.data.orderData;
-                console.log(listTrans);
                 let ids = [];
                 listTrans.forEach((item) => {
                     ids.push(item.transactionID);
@@ -44,8 +47,7 @@ const Order = () => {
 
 
     const deleteTransaction = async (transactionID) => {
-        //showToastSuccess("Hủy thành công đơn hàng " + transactionID);
-        //console.log(transactionID);
+
         if (orderList.find(x => x.transactionID == transactionID).UserCanceled) {
             showToastWarning("Đơn hàng này đã hủy, không thể hủy nữa =))")
             return;
@@ -57,7 +59,6 @@ const Order = () => {
 
         try {
             await handleDeleteTransaction(transactionID).then(res => {
-                console.log(res);
                 showToastSuccess("Hủy đơn hàng thành công");
                 toggle();
                 fetch();
@@ -80,9 +81,7 @@ const Order = () => {
 
     const fetch = async () => {
         await getOrder(userInfo.id).then(res => {
-            //console.log("Orders", );
             let listTrans = res.data.orderData;
-            console.log(listTrans);
             let ids = [];
             listTrans.forEach((item) => {
                 ids.push(item.transactionID);
@@ -137,15 +136,15 @@ const Order = () => {
             progress: undefined,
         });
     };
-    
+
     // TABLE
     const dataSource = [
         {
-          key: '1',
-          img: 'http://localhost:8889/api/v1/image1?imageName=dan2_600x600.jpg',
-          name: 'sản phẩm 1',
-          count: '2',
-          money: 20,
+            key: '1',
+            img: 'http://localhost:8889/api/v1/image1?imageName=dan2_600x600.jpg',
+            name: 'sản phẩm 1',
+            count: '2',
+            money: 20,
         },
         {
             key: '2',
@@ -153,46 +152,46 @@ const Order = () => {
             name: 'sản phẩm 2',
             count: '5',
             money: 50,
-          },
-          {
+        },
+        {
             key: '1',
             img: 'http://localhost:8889/api/v1/image1?imageName=dan2_600x600.jpg',
             name: 'sản phẩm 1',
             count: '2',
             money: 20,
-          }
-      ];
-      
-      const columns = [
-        {
-          title: 'Hình ảnh',
-          dataIndex: 'img',
-          key: 'img',
-          render: (img)=> <img src={img}/>
-        },
-        {
-          title: 'Tên sản phẩm',
-          dataIndex: 'name',
-          key: 'name',
-        },
-        {
-          title: 'Số lượng',
-          dataIndex: 'count',
-          key: 'count',
-        },
-        {
-          title: 'Thành tiền',
-          dataIndex: 'money',
-          key: 'money',
-        },
-        {
-          title: 'Hủy đơn hàng',
-          dataIndex:  'deleteOrder',
-          key: 'deleteOrder',
-          render: () => <button className="primary-button">Hủy đơn</button>
         }
-      ];
-    
+    ];
+
+    const columns = [
+        {
+            title: 'Hình ảnh',
+            dataIndex: 'img',
+            key: 'img',
+            render: (img) => <img src={img} />
+        },
+        {
+            title: 'Tên sản phẩm',
+            dataIndex: 'name',
+            key: 'name',
+        },
+        {
+            title: 'Số lượng',
+            dataIndex: 'count',
+            key: 'count',
+        },
+        {
+            title: 'Thành tiền',
+            dataIndex: 'money',
+            key: 'money',
+        },
+        {
+            title: 'Hủy đơn hàng',
+            dataIndex: 'deleteOrder',
+            key: 'deleteOrder',
+            render: () => <button className="primary-button">Hủy đơn</button>
+        }
+    ];
+
     return (
         orderList && orderList.length > 0 ? (
             <div className="order-page">
@@ -204,9 +203,9 @@ const Order = () => {
                         return (
                             <div key={index} className="order-page-table" style={{ marginTop: "20px" }}>
                                 <table className="order-table-product">
-                                    <div style={{ display: "flex",marginBottom:'10px' , justifyContent:'space-between'}}>
+                                    <div style={{ display: "flex", marginBottom: '10px', justifyContent: 'space-between' }}>
                                         <h2 className="order-table-product-title">Đơn hàng {trans}</h2>
-                                        <button className={orderList.find(x => x.transactionID == trans).adminAccept == true || orderList.find(x => x.transactionID == trans).UserCanceled == true ? "order-header-cta gray-bg" : "order-header-cta primary-button"}  onClick={() => deleteTransaction(trans)} style={{width:'fit-content'}}>Hủy đơn hàng</button>
+                                        <button className={orderList.find(x => x.transactionID == trans).adminAccept == true || orderList.find(x => x.transactionID == trans).UserCanceled == true ? "order-header-cta gray-bg" : "order-header-cta primary-button"} onClick={() => deleteTransaction(trans)} style={{ width: 'fit-content' }}>Hủy đơn hàng</button>
                                     </div>
                                     <thead>
                                         <tr className="order-table-header">
@@ -272,7 +271,7 @@ const Order = () => {
                 /> */}
             </div>
 
-        ) : <p className = 'primary-title'>Chưa có sản phẩm nào</p>
+        ) : <p className='primary-title'>Chưa có sản phẩm nào</p>
 
     )
 }

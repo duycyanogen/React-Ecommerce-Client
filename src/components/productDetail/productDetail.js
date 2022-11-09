@@ -7,7 +7,6 @@ import * as actions from '../../store/actions/index'
 import { ToastContainer, toast } from 'react-toastify';
 import { handleAddNewCart } from '../../services/cartService'
 function ProductDetail(props) {
-    // console.log('props', props)
     const listProducts = useSelector(state => state.product.listProducts)
     const { id } = useParams();
     const product = listProducts?.find((product => product.id == id))
@@ -170,7 +169,7 @@ function ProductDetail(props) {
                                 </span>
                             </div>
                             <div className="form__button">
-                                <button className = 'primary-button' onClick={() => handleAddToCart()}>Thêm vào giỏ hàng</button>
+                                <button className='primary-button' onClick={() => handleAddToCart()}>Thêm vào giỏ hàng</button>
                             </div>
                         </div>
                     </div>
