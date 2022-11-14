@@ -1,12 +1,12 @@
 import { React, useState, useEffect } from "react";
 import './product.scss'
-import { getAll, handleDeleteGuitar } from '../../services/flowerService'
+import { getAll, handleDeleteFlower } from '../../services/flowerService'
 import { useSelector } from 'react-redux';
-import GuitarModal from "../guitarModal/guitarModal";
+import flowerModal from "../flowerModal/flowerModal";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 
-import {DoubleLeftOutlined, DoubleRightOutlined} from '@ant-design/icons';
+import { DoubleLeftOutlined, DoubleRightOutlined } from '@ant-design/icons';
 import { ContainerTitle } from "../ContainerTitle";
 
 
@@ -50,7 +50,7 @@ const Product = () => {
     }
 
     const fetch = async () => {
-        showToastSuccess("Đang fetch API nè!");
+
         await getAll().then(res => {
             setProductList(res.data.object.sort((a, b) => {
                 return - a.id + b.id
@@ -60,7 +60,7 @@ const Product = () => {
 
     const deleteProduct = async (productID) => {
         try {
-            await handleDeleteGuitar(productID).then(res => {
+            await handleDeleteFlower(productID).then(res => {
                 showToastSuccess("Xóa sản phẩm thành công!");
                 fetch();
             })
@@ -122,7 +122,7 @@ const Product = () => {
     return (
         listRender && listRender.length > 0 ? (
             <div className="product-page">
-                <ContainerTitle title = 'Quản lý sản phẩm'/>
+                <ContainerTitle title='Quản lý sản phẩm' />
                 <div className="product-page-container">
 
                     <div className="product-page-table">
@@ -170,7 +170,7 @@ const Product = () => {
                         <button href="#" className="primary-button" target="_blank" onClick={() => showModal()}>Thêm mới sản phẩm</button>
                     </div>
                 </div>
-                <GuitarModal
+                <flowerModal
                     productInfo={productInfo}
                     isOpen={isOpenChildModal}
                     toggle={toggle}

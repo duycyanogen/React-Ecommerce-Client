@@ -191,7 +191,7 @@ const Order = () => {
     return (
         orderList && orderList.length > 0 ? (
             <div className="order-page">
-                <ContainerTitle title = 'Đơn hàng của bạn'/>
+                <ContainerTitle title='Đơn hàng của bạn' />
                 <div className="order-page-container">
                     {/* {listUniqueTrans && listUniqueTrans.length > 0} */}
 
