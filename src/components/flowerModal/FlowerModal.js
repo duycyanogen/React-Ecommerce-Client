@@ -7,7 +7,7 @@ import {
 } from "reactstrap"
 import './flowerModal.scss'
 import { handleAddNewFlower, handleUpdateFlower } from '../../services/flowerService'
-import { UploadImg } from './UpLoadImg';
+import { UploadImg } from '../imgComponent/UploadImg';
 const { Component } = require("react");
 
 export default class FlowerModal extends Component {

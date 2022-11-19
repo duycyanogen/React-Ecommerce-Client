@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import Fancybox from './FancyBox';
 
 const UpLoadImgStyled = styled.div`
     width: 100%;
@@ -61,25 +62,16 @@ const UpLoadImgStyled = styled.div`
         }
     }
 `
-export const  UploadImg = (props) => {
-  const [dataImg,setDataImg] = useState([]);
-  const [imgFiles,setImgFiles] = useState([]); // file lưu
+export const  ImageGroup = (props) => {
+  const dataImg = props.dataImg
   const [overNumber,setOverNumber] = useState(0);
-  const getUrlImg = props.getUrlImg;
+  console.log(dataImg);
 
   useEffect(()=> {
-    getUrlImg(dataImg);
-    if(dataImg.length>5) {
-        setOverNumber(dataImg.length - 5);
+    if(dataImg?.length>5) {
+        setOverNumber(dataImg?.length - 5);
     }
   },[dataImg]);
-
-  const handleChangeFile = (e)=> {
-    const file = e.target.files[0];
-    const imgSrc = URL.createObjectURL(file);
-    setDataImg( arr => [...arr,  imgSrc]);
-    setImgFiles(arr => [...arr, file] )
-  }
 
   const handleWidth = (index) => {
     let size = dataImg.length;
@@ -114,23 +106,19 @@ export const  UploadImg = (props) => {
   
   return (
     <UpLoadImgStyled className={dataImg.length != 0 ? 'show-img-block' : ''}>
-      <div className='add-block'>
-         {/* <ImgItem getImage = {getImage} idInput = '1' /> */}
-        <label id="image-preview" htmlFor='inputImg' className='label' >
-          <span>Thêm hình ảnh</span>
-         </label>
-        <input type="file" className="input" name="file" id='inputImg' style={{ display: "none" }} onChange={(e) => handleChangeFile(e)} />
-      </div>
-      <div className='img-block'>
-        { dataImg.map((item,index)=>
-          <div  className = 'img-block__item' style={{width: `${handleWidth(index)}`, height : `${handleHeight(index)}`}}>
-            <img src={item}/>
-          </div>
-        )}
-      </div>
-      {(overNumber!=0) &&  <div className='over-block'>
-            <span>+{overNumber}</span>
+      <Fancybox options={{ infinite: false }}>
+        <div className='img-block'>
+         { dataImg.map((item,index)=>
+            <div  className = 'img-block__item' style={{width: `${handleWidth(index)}`, height : `${handleHeight(index)}`}}>
+              <img src={item} data-fancybox="gallery" data-src={item}/>
+            </div>
+         )}
+        </div>
+        {(overNumber!=0) &&  <div className='over-block' data-fancybox="gallery" data-src={dataImg[5]}>
+          <span >+{overNumber}</span>
         </div>}
+     </Fancybox>
+    
     </UpLoadImgStyled>
   )
 }

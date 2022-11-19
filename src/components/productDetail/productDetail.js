@@ -1,3 +1,5 @@
+
+
 //import style from './productDetail.module.scss'
 import './productDetail.scss'
 import { React, useEffect } from "react";
@@ -6,12 +8,48 @@ import { connect, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index'
 import { ToastContainer, toast } from 'react-toastify';
 import { handleAddNewCart } from '../../services/cartService'
+import { Comment } from '../Cmt/Comment';
+import { CommentView } from '../Cmt/CommentView';
+import { Rate } from 'antd';
+
+const dataCommentFake = [
+    {
+      userAvatar: '../image/bg-footer.jpg',
+      userName:"Hưng",
+      starValue:5,
+      timeComment:"30 tháng 10 năm 2024",
+      commentContent:"Nội dung comment"
+    },
+    {
+      userAvatar: '../image/bg-footer.jpg',
+      userName:"Hưng",
+      starValue:3,
+      timeComment:"30 tháng 10 năm 2024",
+      commentContent:"Nội dung comment Phòng sạch sẽ, dụng cụ làm bếp có nhưng chưa đủ, thiếu thớt và dao hơi cùn. Máy lạnh có cũng như không, mình để 17 độ nhưng vẫn nóng"
+    },
+    {
+      userAvatar: '../image/bg-footer.jpg',
+      userName:"Hưng",
+      starValue:4,
+      timeComment:"30 tháng 10 năm 2024",
+      commentContent:"dụng cụ làm bếp có nhưng chưa đủ, thiếu thớt "
+    },
+    {
+      userAvatar: '../image/bg-footer.jpg',
+      userName:"Hưng",
+      starValue:2,
+      timeComment:"30 tháng 10 năm 2024",
+      commentContent:"Nội dung comment"
+    }
+]
 function ProductDetail(props) {
+    // console.log('props', props)
     const listProducts = useSelector(state => state.product.listProducts)
     const { id } = useParams();
     const product = listProducts?.find((product => product.id == id))
     const userInfo = useSelector(state => state.user.userInfo);
     const navigate = useNavigate();
+    const dataComment = dataCommentFake;
     useEffect(() => {
         async function fetchProduct() {
             await props.getAllProduct();
@@ -62,14 +100,14 @@ function ProductDetail(props) {
         }
         let input = {
             userID: userInfo.id,
-            idFlower: id,
+            idGuitar: id,
             quantity: 1,
             amount: 1
         }
 
         try {
             await handleAddNewCart(input).then(res => {
-                showToastSuccess(res.data.object)
+                showToastSuccess(res.data.cartData.message)
             })
         }
         catch (error) {
@@ -80,6 +118,34 @@ function ProductDetail(props) {
             }
         }
 
+    }
+    
+    const getDate = () => {
+        let curDate = new Date();
+        return {
+            curDate: curDate.getDate(),
+            curMonth: curDate.getMonth() + 1,
+            curYear: curDate.getFullYear()
+        }
+    }
+
+    const getComment = (value) => {
+        let time = getDate();
+        let valueComment = {...value,...time};
+        console.log(valueComment)
+        return {
+            ...value,...time
+        }        
+    }
+
+    const getAverageStar = () => {
+        let temp = 0;
+        dataComment.map(item => {
+            temp = temp + item.starValue;
+        })
+        console.log(temp/dataComment.length.toFixed(1)) ;
+        
+        return temp/dataComment.length.toFixed(1);
     }
 
     return (
@@ -150,6 +216,7 @@ function ProductDetail(props) {
                 </section>
                 <section className="room-info">
                     <div className="room-info__benefit">
+
                         <div className="description">
                             <h2>Thông tin đàn</h2>
                             <p>• Tên:  {product.name}</p>
@@ -158,6 +225,8 @@ function ProductDetail(props) {
                             <p>• Dáng: Dáng D</p>
                             <p>• {product.contents}</p>
                         </div>
+
+
                     </div>
                     <div className="room-info__check-form">
                         <div className="form">
@@ -168,12 +237,34 @@ function ProductDetail(props) {
                                     <span>5({product.views} lượt xem)</span>
                                 </span>
                             </div>
+                            {/* <div className="form__body">
+                                <div className="grid-column">
+                                    <div className="grid-row grid-row-2">
+                                        <div className="grid-column-2">Nhận phòng</div>
+                                        <div className="grid-column-2">Trả phòng</div>
+                                    </div>
+                                    <div className="grid-row-2">
+                                        Khách
+                                    </div>
+                                </div>
+                            </div> */}
                             <div className="form__button">
-                                <button className='primary-button' onClick={() => handleAddToCart()}>Thêm vào giỏ hàng</button>
+                                <button onClick={() => handleAddToCart()}>Thêm vào giỏ hàng</button>
                             </div>
                         </div>
                     </div>
                 </section>
+                <Comment getComment = {getComment}/>
+                <div style={{marginTop: '40px'}}>
+                    <p style={{color:'#d1c7bc', fontSize:'16px', fontWeight:'500'}}>
+                    <Rate disabled allowHalf defaultValue={getAverageStar()} /> {getAverageStar()} <span style={{marginLeft: "20px"}}>· {dataComment.length}dánh giá</span></p>
+                    {dataComment.map((item)=>
+                      <div style={{borderBottom: "1px solid rgb(50 50 50)", marginBottom: "20px"}}>
+                        <CommentView userAvatar= {item.userAvatar} userName={item.userName} starValue={item.starValue} timeComment={item.timeComment} commentContent={item.commentContent}/>
+                      </div>
+                    )}
+                </div>
+
                 <section className="comment-rating">
                     <div className="comment-rating__heading">
                         <span className="comment-rating__star-icon"><i className="fas fa-star"></i></span>
@@ -318,7 +409,7 @@ function ProductDetail(props) {
                                 alt="" />
                         </div>
                         <div className="owner__info">
-                            <div className="owner__name">flower shop Duy Nguyễn</div>
+                            <div className="owner__name">Guitar shop Duy Nguyễn</div>
                             <div className="owner__date">Thành lập từ tháng 9 năm 2010</div>
                         </div>
                     </div>
@@ -336,7 +427,7 @@ function ProductDetail(props) {
                             Đã được xác minh danh tính
                         </span>
                         <div className="description">
-                            Các bạn biết không? 99% nguyên nhân khiến những người chơi bỏ đàn flower lại chính là từ cây đàn của họ.
+                            Các bạn biết không? 99% nguyên nhân khiến những người chơi bỏ đàn Guitar lại chính là từ cây đàn của họ.
 
                             Nhất là các bạn nữ.Đau tay, thậm chí hỏng tay nhưng các bạn đâu biết có thể do chính cây đàn của các bạn ko đạt yêu cầu.Khổ 1 nỗi, hầu như lúc chọn mua 1 sản phẩm, nhất là phải mua Online; đúng ra khi các bạn nói các bạn chưa biết gì về đàn sẽ nhận được sự tư vấn giúp các bạn  thêm kiến thức và mua được cây đàn tốt, phù hợp để tiếp tục đam mê thì chính các bạn lại bị lừa đảo. Cũng như tôi (Tiến Nguyễn) đã từng là nạn nhân ngày tôi mới tự tập đàn vì bị lợi dụng sự chưa hiểu biết nhiều của bản thân. Hàng Fake thì nói hàng thương hiệu Ngoại Chính Hãng. Gỗ Ép kém chất lượng nói gỗ thịt, gỗ này thì nói gỗ kia,... đàn lỗi, đàn kém, đàn hỏng sẽ được bán ra khi gặp những người như vậy. Tôi thấy tội nghiệp thay cho mình lúc ấy và bao nhiêu người đồng cảnh: tiền mất thì còn có thể làm ra, nhưng cái niềm tin và hi vọng thắp sáng đam mê bị dập vùi mất rồi.
 
@@ -354,7 +445,7 @@ function ProductDetail(props) {
 
                             1. Cung cấp những sản phẩm thương hiệu Ngoại chính hãng.Đó là những thương hiệu tốt, phù hợp với điều kiện trong nước. Bên cạnh đó, hi vọng sẽ đầy lùi được việc lừa đảo khi mà hàng Fake lại cam đoan Chính Hãng. Kể cả các bạn chưa mua mặt hàng này cũng mong các bạn có thêm kiến thức, hiểu biết về chúng.
 
-                            2. Những sản phẩm Thương Hiệu Việt Nam, nhằm tôn vinh nghệ nhân Việt để họ thêm động lực sang tạo & phát triển cho thương hiệu nước nhà. Tôi sẽ trực tiếp quản lý chất lượng từng cây đàn Việt & cùng phát triển ý tưởng với các nghệ nhân, tôi mong 1 ngày không xa flower Thương Hiệu Việt vươn tâm ra Thế Giới.
+                            2. Những sản phẩm Thương Hiệu Việt Nam, nhằm tôn vinh nghệ nhân Việt để họ thêm động lực sang tạo & phát triển cho thương hiệu nước nhà. Tôi sẽ trực tiếp quản lý chất lượng từng cây đàn Việt & cùng phát triển ý tưởng với các nghệ nhân, tôi mong 1 ngày không xa Guitar Thương Hiệu Việt vươn tâm ra Thế Giới.
 
                             Tiến Nguyễn Music luôn đặt chất lượng sản phẩm & sự hài lòng của khách hàng lên hàng đầu. Chính vì điều này mà dù mới được thành lập chưa lâu nhưng Tiến Nguyễn Music đã và đang là 1 địa chỉ uy tín, tin cậy và là 1 sân chơi vô cùng thú vị cho những anh em yêu âm nhạc trong và ngoài nước. Và Tiến Nguyễn Music cũng vừa nhận bằng khen, Cúp vàng cho “Thương Hiệu, Sản Phẩm, Dịch vụ thương hiệu hàng đầu Việt Nam 2017” do Hiệp Hội Chống Hàng Giả và Bảo vệ Thương Hiệu Việt Nam Bình Chọn!
                         </div>
