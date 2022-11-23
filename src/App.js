@@ -3,7 +3,7 @@ import './App.css';
 import './App.scss';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Layout from './components/layout/layout';
-import Login from './containers/Login'
+import Login from './pages/Login'
 import ProductDetail from "./components/productDetail/productDetail";
 import ListProduct from "./components/listProduct/listProduct";
 import Cart from "./components/cart/cart";
@@ -12,21 +12,32 @@ import Product from "./components/product/product";
 import { useSelector } from 'react-redux';
 import { UserAccount } from './components/userAccount/UserAccount'
 import { StatisticsPage } from "./components/statisticsPage/StatisticsPage";
+import ProtectedRoute from "./components/layout/ProtectedRoute";
+import ErrorPage from "./pages/ErrorPage";
+import { AdminRoute } from "./components/layout/AdminRoute";
 function App() {
   const userInfo = useSelector(state => state.user.userInfo);
   return (
     <Routes>
-      <Route path='/' element={<Layout><ListProduct /></Layout>} />
-      {/* <Route path='/' element={<Layout></></Layout>} /> */}
-      <Route path='/cart' element={userInfo ? <Layout><Cart /></Layout> : <Login />} />
-      <Route path='/order' element={userInfo ? <Layout><Order /></Layout> : <Login />} />
-      <Route path='/user' element={userInfo ? <Layout><UserAccount /></Layout> : <Login />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='/products/:id' element={<Layout><ProductDetail /></Layout>} />
-      {/* <Route path='/products' element={userInfo ? <Layout><Product /></Layout> : <Login />} /> */}
-      <Route path='/products' element={<Layout><Product /></Layout> } />
-      <Route path='/statistics' element={(userInfo && userInfo.idRole == 1) ? <Layout><StatisticsPage /></Layout> : <Login />} />
-
+        <Route path='/login' element={<Login />} />
+        <Route path="/" element=<Layout/>>
+          <Route path='/' element={<ListProduct />} />    
+        </Route>
+        <Route element = {<ProtectedRoute/>}>
+             <Route path="/" element=<Layout/>>
+                <Route path='cart' element={<Cart />} />
+                <Route path='order' element={<Order />} />
+                <Route path='user' element={<UserAccount />} />
+                <Route path='products/:id' element={<ProductDetail />} />
+                <Route path='products' element={<Product />} />
+             </Route>
+        </Route>
+        <Route  element = <AdminRoute/>>
+          <Route path="/" element=<Layout/>>
+             <Route path='/statistics' element={<StatisticsPage />} />
+          </Route>
+        </Route>
+        <Route path='*' element={<ErrorPage/>}/>
     </Routes>
   );
 }

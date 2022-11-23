@@ -6,7 +6,7 @@ import PayConfirmModal from "../payConfirmModal/payConfirmModal";
 import { ToastContainer, toast } from 'react-toastify';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
-import { ContainerTitle } from "../ContainerTitle";
+import { ContainerTitle } from "../commonModules/ContainerTitle";
 
 const Cart = () => {
     const navigate = useNavigate();

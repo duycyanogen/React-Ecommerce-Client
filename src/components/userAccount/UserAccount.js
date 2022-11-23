@@ -4,7 +4,7 @@ import {InputItem} from '../commonModules/InputItem';
 import '../../constant/style.scss'
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { ContainerTitle } from '../ContainerTitle';
+import { ContainerTitle } from '../commonModules/ContainerTitle';
 
 const UserAccountStyled = styled.div`
   .container {

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 const { RangePicker } = DatePicker;
 export const DatePickerCustom = (props) => {
   const [dates, setDates] = useState([])
-  console.log(dates)
+  // console.log(dates)
 
   return (
     <RangePicker format="YYYY-MM-DD" className = {props.className} onChange={(values) => {

@@ -19,7 +19,6 @@ import { activePageSelector } from '../../store/selectors';
 export default function Header(props) {
   const userInfo = useSelector(state => state.user.userInfo);
   const activePage = useSelector(activePageSelector);
-  console.log(activePage);
   const dispatch = useDispatch();
   const [isOpenChildModal, setIsOpenChildModal] = useState(false);
 

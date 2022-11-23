@@ -1,11 +1,12 @@
 import React from "react"
+import { Outlet } from "react-router-dom"
 import Header from "../headerAndNavBar/header"
 import ListProduct from "../listProduct/listProduct"
-export default function Layout(props) {
+export default function Layout() {
     return (
         <div>
             <Header>
-                {props.children}
+              <Outlet/>
             </Header>
         </div>
     )

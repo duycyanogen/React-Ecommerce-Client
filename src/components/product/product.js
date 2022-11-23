@@ -7,11 +7,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 
 import { DoubleLeftOutlined, DoubleRightOutlined } from '@ant-design/icons';
-import { ContainerTitle } from "../ContainerTitle";
+import { ContainerTitle } from "../commonModules/ContainerTitle";
 
 
 
 const Product = () => {
+    console.log('render');
     const [productList, setProductList] = useState([]);
     const userInfo = useSelector(state => state.user.userInfo);
     const [pageNumber, setPageNumber] = useState(1);

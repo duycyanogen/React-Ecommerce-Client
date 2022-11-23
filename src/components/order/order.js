@@ -11,7 +11,7 @@ import "../../assets/img/guitar.jpg"
 import { useNavigate } from "react-router-dom";
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { Container } from "reactstrap";
-import { ContainerTitle } from "../ContainerTitle";
+import { ContainerTitle } from "../commonModules/ContainerTitle";
 
 const Order = () => {
     const navigate = useNavigate();

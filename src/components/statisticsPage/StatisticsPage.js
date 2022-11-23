@@ -4,7 +4,7 @@ import  {ChartItem} from '../commonModules/chart/ChartItem';
 import { MyChart } from '../commonModules/chart/MyChart'
 import { DatePickerCustom } from '../commonModules/DatePickerCustom';
 import { SelectCustom } from '../commonModules/SelectCustom';
-import { ContainerTitle } from '../ContainerTitle';
+import { ContainerTitle } from '../commonModules/ContainerTitle';
 
 const StatisticsPageStyled = styled.div`
   .date-picker-custom {
