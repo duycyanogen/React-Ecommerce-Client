@@ -7,9 +7,10 @@ import {
 } from "reactstrap"
 import './flowerModal.scss'
 import { handleAddNewFlower, handleUpdateFlower } from '../../services/flowerService'
+import { UploadImg } from './UpLoadImg';
 const { Component } = require("react");
 
-export default class flowerModal extends Component {
+export default class FlowerModal extends Component {
     constructor(props) {
         super(props);
 
@@ -139,9 +140,15 @@ export default class flowerModal extends Component {
             previewUrl: undefined
         })
     }
+     
+    // LẤY array url img ở đây
+    getUrlImg = (data) => {
+        console.log(data);
+        // set State data ảnh ở đây
+        return data;
+    }
 
     render() {
-
         return (
 
             <Modal isOpen={this.props.isOpen}
@@ -168,63 +175,9 @@ export default class flowerModal extends Component {
                             <input type="text" className="input" name='discount' value={this.state.discount} onChange={(e) => this.handleChangeInput(e)} />
                         </div>
                         <div className='field'>
-                            <div className='container'>
-                                <div className='img-block'>
-                                    <div className='img-block__left'>
-                                        <label id="image-preview" htmlFor="file" className='label' >
-                                            {this.state.file ?
-                                                (<Fragment>
-                                                    <img src={this.state.previewUrl}></img>
-                                                    <div className='file-name'>{this.state.file.name}</div>
-                                                    <span className='close-btn' onClick={(e) => this.handleCancelImage(e)}><i class="fa-solid fa-xmark"></i></span>
-                                                </Fragment>) : (<Fragment>
-                                                    <div className='content'>
-                                                        <div className='icon'>
-                                                            <i className="fa fa-cloud-upload icon" aria-hidden="true"></i>
-                                                        </div>
-                                                        <div className='text'>Chưa có file nào được chọn</div>
-                                                    </div>
-                                                </Fragment>)}
-                                        </label>
-                                    </div>
-                                    <div className='img-block__right'>
-                                        <div className='img-block__right__top'>
-                                            <label id="image-preview" htmlFor="file" className='label' >
-                                                {this.state.file ?
-                                                    (<Fragment>
-                                                        <img src={this.state.previewUrl}></img>
-                                                        <div className='file-name'>{this.state.file.name}</div>
-                                                        <span className='close-btn' onClick={(e) => this.handleCancelImage(e)}><i class="fa-solid fa-xmark"></i></span>
-                                                    </Fragment>) : (<Fragment>
-                                                        <div className='content'>
-                                                            <div className='icon'>
-                                                                <i className="fa fa-cloud-upload icon" aria-hidden="true"></i>
-                                                            </div>
-                                                            <div className='text'>Chưa có file nào được chọn</div>
-                                                        </div>
-                                                    </Fragment>)}
-                                            </label>
-                                        </div>
-                                        <div className='img-block__right__bottom'></div>
-                                    </div>
-                                </div>
-                                <label id="image-preview" htmlFor="file" className='label' >
-                                    {this.state.file ?
-                                        (<Fragment>
-                                            <img src={this.state.previewUrl}></img>
-                                            <div className='file-name'>{this.state.file.name}</div>
-                                            <span className='close-btn' onClick={(e) => this.handleCancelImage(e)}><i class="fa-solid fa-xmark"></i></span>
-                                        </Fragment>) : (<Fragment>
-                                            <div className='content'>
-                                                <div className='icon'>
-                                                    <i className="fa fa-cloud-upload icon" aria-hidden="true"></i>
-                                                </div>
-                                                <div className='text'>Chưa có file nào được chọn</div>
-                                            </div>
-                                        </Fragment>)}
-                                </label>
-                            </div>
-                            <input type="file" className="input" name='file' id="file" style={{ display: "none" }} onChange={(e) => this.handleChangeFile(e)} />
+                           <div className='img-upload'>
+                             <UploadImg getUrlImg = {this.getUrlImg} />
+                           </div>
                         </div>
                     </div>
 
@@ -241,7 +194,7 @@ export default class flowerModal extends Component {
 
 }
 
-flowerModal.defaultProps = {
+FlowerModal.defaultProps = {
     productInfo: {
         id: 0,
         name: "",

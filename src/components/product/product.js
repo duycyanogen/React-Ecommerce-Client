@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import './product.scss'
 import { getAll, handleDeleteFlower } from '../../services/flowerService'
 import { useSelector } from 'react-redux';
-import flowerModal from "../flowerModal/flowerModal";
+import FlowerModal from "../flowerModal/FlowerModal";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -33,7 +33,6 @@ const Product = () => {
         debugger;
         async function fetchProduct() {
             await getAll().then(res => {
-                console.log(res);
                 setProductList(res.data.object.sort((a, b) => {
                     return - a.id + b.id
                 }));
@@ -170,7 +169,7 @@ const Product = () => {
                         <button href="#" className="primary-button" target="_blank" onClick={() => showModal()}>Thêm mới sản phẩm</button>
                     </div>
                 </div>
-                <flowerModal
+                <FlowerModal
                     productInfo={productInfo}
                     isOpen={isOpenChildModal}
                     toggle={toggle}

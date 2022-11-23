@@ -3,7 +3,7 @@ import flower from '../../assets/img/guitar.png'
 import UserModal from '../userModal/userModal';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
-import flowerModal from '../flowerModal/flowerModal';
+import flowerModal from '../flowerModal/FlowerModal';
 import { React, useState, useEffect } from "react";
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { DownOutlined } from '@ant-design/icons';
