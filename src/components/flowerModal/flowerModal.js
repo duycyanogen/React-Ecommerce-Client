@@ -19,11 +19,12 @@ export default class FlowerModal extends Component {
             isOpen: props.isOpen,
             id: props.productInfo?.id,
             name: props.productInfo ? props.productInfo?.name : 'flower Taylor x100 acoustic',
+            quantityIn: props.productInfo ? props.productInfo?.quantityIn : 1,
             price: props.productInfo ? props.productInfo?.price : '345000',
             contents: props.productInfo ? props.productInfo?.contents : 'Đàn được làm hoàn toàn từ gỗ nguyên miếng, sử dụng càng lâu âm thanh càng hay, đó là đặc điểm nổi bật nhất của đàn Việt Nam so với đa số các dòng đàn nước ngoài khác.',
             discount: props.productInfo ? props.productInfo?.discount : '30',
             errorMessage: '',
-            file: null,
+            files: null,
             previewUrl: props.productInfo ? props.productInfo?.imageURL : ''
         }
     }
@@ -33,24 +34,18 @@ export default class FlowerModal extends Component {
             this.setState({
                 id: nextProps.productInfo?.id,
                 name: nextProps.productInfo ? nextProps.productInfo?.name : 'flower Taylor x100 acoustic',
+                quantityIn: nextProps.productInfo ? nextProps.productInfo?.quantityIn : 1,
                 price: nextProps.productInfo ? nextProps.productInfo?.price : '345000',
                 contents: nextProps.productInfo ? nextProps.productInfo?.contents : 'Đàn được làm hoàn toàn từ gỗ nguyên miếng, sử dụng càng lâu âm thanh càng hay, đó là đặc điểm nổi bật nhất của đàn Việt Nam so với đa số các dòng đàn nước ngoài khác.',
                 discount: nextProps.productInfo ? nextProps.productInfo?.discount : '30',
                 errorMessage: '',
-                file: null,
+                files: null,
                 previewUrl: nextProps.productInfo ? nextProps.productInfo?.imageURL : ''
             });
         }
         return true;
     }
 
-
-    // static getDerivedStateFromProps(nextProps, currentState) {
-    //     // Any time props.email changes, update state.
-    //     if (nextProps.productInfo !== currentState.productInfo) {
-
-    //     }
-    // }
 
     toggle = () => {
         this.props.toggle();
@@ -75,7 +70,7 @@ export default class FlowerModal extends Component {
     }
     checkValidateInput = () => {
         let isValid = true;
-        let arrInput = ['name', 'price', 'contents', 'discount', 'file'];
+        let arrInput = ['name', 'price', 'contents', 'discount', 'files'];
         for (let i = 0; i < arrInput.length; i++) {
             if (!this.state[arrInput[i]]) {
                 isValid = false;
@@ -93,18 +88,18 @@ export default class FlowerModal extends Component {
             let input = this.state;
             if (input.id > 0)
                 await handleUpdateFlower(input).then(res => {
-                    this.showToastSuccess(res.data.flowerData.message);
+                    this.showToastSuccess(res.data.object);
                 })
             else
                 await handleAddNewFlower(input).then(res => {
-                    this.showToastSuccess(res.data.flowerData.message);
+                    this.showToastSuccess(res.data.object);
                 })
             this.fetch();
         }
         catch (error) {
             if (error.response) {
                 if (error.response.data) {
-                    this.showToastError(error.response.data.message);
+                    this.showToastError(error.response.object);
                 }
             }
         }
@@ -115,37 +110,13 @@ export default class FlowerModal extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
-    handleChangeFile = (e) => {
-        const file = e.target.files[0];
-        if (!file) {
-            this.setState({
-                file: null,
-                previewUrl: undefined
-            })
-            return;
-        }
-        else {
-            const objectUrl = URL.createObjectURL(file);
-            this.setState({
-                file: file,
-                previewUrl: objectUrl
-            })
-        }
-    }
 
-    handleCancelImage = (e) => {
-        e.preventDefault();
-        this.setState({
-            file: null,
-            previewUrl: undefined
-        })
-    }
-     
     // LẤY array url img ở đây
-    getUrlImg = (data) => {
-        console.log(data);
+    getFiles = (files) => {
+        debugger;
+        console.log(files);
         // set State data ảnh ở đây
-        return data;
+        this.setState({ files: files })
     }
 
     render() {
@@ -167,6 +138,10 @@ export default class FlowerModal extends Component {
                             <input type="text" className="input" name='price' value={this.state.price} onChange={(e) => this.handleChangeInput(e)} />
                         </div>
                         <div className='field'>
+                            <label className='label' >Số lượng nhập</label>
+                            <input type="text" className="input" name='price' value={this.state.quantityIn} onChange={(e) => this.handleChangeInput(e)} />
+                        </div>
+                        <div className='field'>
                             <label className='label' >Mô tả</label>
                             <input type="text" className="input" name='contents' value={this.state.contents} onChange={(e) => this.handleChangeInput(e)} />
                         </div>
@@ -175,15 +150,15 @@ export default class FlowerModal extends Component {
                             <input type="text" className="input" name='discount' value={this.state.discount} onChange={(e) => this.handleChangeInput(e)} />
                         </div>
                         <div className='field'>
-                           <div className='img-upload'>
-                             <UploadImg getUrlImg = {this.getUrlImg} />
-                           </div>
+                            <div className='img-upload'>
+                                <UploadImg getFiles={this.getFiles} />
+                            </div>
                         </div>
                     </div>
 
                     <div className='button-bar'>
                         <button className='primary-button' onClick={() => this.toggle()}>Thoát</button>
-                        <button className='primary-button' onClick={() => this.handleAddNewflower()}>{this.props.productInfo?.id > 0 ? "Cập nhật" : "Thêm mới"}</button>
+                        <button className='primary-button' onClick={() => this.handleAddNewFlower()}>{this.props.productInfo?.id > 0 ? "Cập nhật" : "Thêm mới"}</button>
                     </div>
                 </ModalBody>
             </Modal>

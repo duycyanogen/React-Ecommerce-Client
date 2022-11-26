@@ -62,80 +62,88 @@ const UpLoadImgStyled = styled.div`
         }
     }
 `
-export const  UploadImg = (props) => {
+export const UploadImg = (props) => {
   // const getUrlImg = props.getUrlImg;
-  const [dataImg,setDataImg] = useState([]);
-  const [imgFiles,setImgFiles] = useState([]); // file lưu
-  const [overNumber,setOverNumber] = useState(0);
+  const [dataImg, setDataImg] = useState([]);
+  const [imgFiles, setImgFiles] = useState([]); // file lưu
+  const [overNumber, setOverNumber] = useState(0);
 
-  useEffect(()=> {
+  useEffect(() => {
     // getUrlImg(dataImg);
-    if(dataImg.length>5) {
-        setOverNumber(dataImg.length - 5);
+    if (dataImg.length > 5) {
+      setOverNumber(dataImg.length - 5);
     }
     console.log(dataImg);
-  },[dataImg]);
+  }, [dataImg]);
 
 
-  const handleChangeFile = (e)=> {
-    const file = e.target.files[0];
-    const imgSrc = URL.createObjectURL(file);
-    setDataImg( arr => [...arr,  imgSrc]);
-    setImgFiles(arr => [...arr, file] )
+  const handleChangeFile = (e) => {
+    let listFileURL = [];
+    let fileList = [];
+    for (const file of e.target.files) {
+      listFileURL.push(URL.createObjectURL(file));
+      fileList.push(file);
+    }
+    //const file = e.target.files[0];
+    //const imgSrc = URL.createObjectURL(file);
+    setDataImg(listFileURL);
+    props.getFiles(fileList);
+    setImgFiles(fileList);
   }
+
 
   const handleWidth = (index) => {
     let size = dataImg.length;
-    if(size === 1) {
-        return '100%';
-    }
-    if(size === 2) {
+    if (size === 1) {
       return '100%';
     }
-    if(size === 3) {
-        if(index === 0) {
-            return '100%'
-        } else return '50%';
+    if (size === 2) {
+      return '100%';
     }
-    if(size === 4) {
+    if (size === 3) {
+      if (index === 0) {
+        return '100%'
+      } else return '50%';
+    }
+    if (size === 4) {
+      return '50%';
+    }
+    if (size === 5) {
+      if (index === 0 | index === 1) {
         return '50%';
-    }
-    if(size ===  5) {
-        if(index === 0 | index ===1) {
-            return '50%';
-        }
-        else return '33.33%';
+      }
+      else return '33.33%';
     }
   }
 
   const handleHeight = (index) => {
     let size = dataImg.length + 1;
-    if(size === 1) {
-        return '100%';
+    if (size === 1) {
+      return '100%';
     } else return '50%';
   }
-  
+
   return (
     <UpLoadImgStyled className={dataImg.length != 0 ? 'show-img-block' : ''}>
-       <div className='add-block'>
+      <div className='add-block'>
         <label id="image-preview" htmlFor='inputImg' className='label' >
-           <span>Thêm hình ảnh</span>
+          <span>Thêm hình ảnh</span>
         </label>
-        <input type="file" className="input" name="file" id='inputImg' style={{ display: "none" }} onChange={(e) => handleChangeFile(e)} />
+        <input multiple="true" type="file" className="input" name="file" id='inputImg' style={{ display: "none" }} onChange={(e) => handleChangeFile(e)} />
       </div>
       {/* <Fancybox options={{ infinite: false }}> */}
-        <div className='img-block'>
-         { dataImg.map((item,index)=>
-            <div  className = 'img-block__item' style={{width: `${handleWidth(index)}`, height : `${handleHeight(index)}`}}>
-              <img src={item}/>
-            </div>
-         )}
-        </div>
-        {(overNumber!=0) &&  <div className='over-block'>
-          <span >+{overNumber}</span>
-        </div>}
-     {/* </Fancybox> */}
-    
+      <div className='img-block'>
+        {dataImg.map((item, index) =>
+          <div className='img-block__item' style={{ width: `${handleWidth(index)}`, height: `${handleHeight(index)}` }}>
+            <img src={item} />
+          </div>
+        )}
+      </div>
+      {(overNumber != 0) && <div className='over-block'>
+        <span >+{overNumber}</span>
+      </div>}
+      {/* </Fancybox> */}
+
     </UpLoadImgStyled>
   )
 }
