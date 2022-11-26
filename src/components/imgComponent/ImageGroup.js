@@ -106,7 +106,7 @@ export const  ImageGroup = (props) => {
   
   return (
     <UpLoadImgStyled className={dataImg.length != 0 ? 'show-img-block' : ''}>
-      <Fancybox options={{ infinite: false }}>
+      {/*  <Fancybox options={{ infinite: false }}> */}
         <div className='img-block'>
          { dataImg.map((item,index)=>
             <div  className = 'img-block__item' style={{width: `${handleWidth(index)}`, height : `${handleHeight(index)}`}}>
@@ -117,8 +117,7 @@ export const  ImageGroup = (props) => {
         {(overNumber!=0) &&  <div className='over-block' data-fancybox="gallery" data-src={dataImg[5]}>
           <span >+{overNumber}</span>
         </div>}
-     </Fancybox>
-    
+    {/*  </Fancybox> */}
     </UpLoadImgStyled>
   )
 }

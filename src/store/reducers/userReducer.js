@@ -2,7 +2,8 @@
 import actionTypes from '../actions/actionTypes';
 const initialState = {
     isLoggedIn: false,
-    userInfo: JSON.parse(localStorage.getItem("user"))
+    // userInfo: JSON.parse(localStorage.getItem("user"))
+    userInfo: localStorage.getItem("user")
 }
 const userReducer = (state = initialState, action) => {
     switch (action.type) {

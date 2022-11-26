@@ -1,26 +1,22 @@
 import './header.scss'
-import flower from '../../assets/img/guitar.png'
-import UserModal from '../userModal/userModal';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
-import flowerModal from '../flowerModal/FlowerModal';
 import { React, useState, useEffect } from "react";
-import { connect, useDispatch, useSelector } from 'react-redux';
-import { DownOutlined } from '@ant-design/icons';
-import { Dropdown, Menu, Space } from 'antd';
-import { DropdownCustom } from '../commonModules/DropdownCustom';
+import {  useDispatch, useSelector } from 'react-redux';
+import { Menu} from 'antd';
+
 import { UnorderedListOutlined, SettingOutlined } from '@ant-design/icons';
-import { SelectCustom } from '../commonModules/SelectCustom';
 import { Link } from 'react-router-dom';
 import { Footer } from '../footer/Footer';
 import { updateActivePage } from '../../store/slice/activePage';
 import { activePageSelector } from '../../store/selectors';
 
 export default function Header(props) {
-  const userInfo = useSelector(state => state.user.userInfo);
+  const userInfo = useSelector(state => state.user.userInfo[0]);
   const activePage = useSelector(activePageSelector);
   const dispatch = useDispatch();
   const [isOpenChildModal, setIsOpenChildModal] = useState(false);
+  console.log(userInfo);
 
   const showModal = () => {
     setIsOpenChildModal(true);
@@ -72,6 +68,9 @@ export default function Header(props) {
     window.location.reload(false);
   }
 
+  const queryString = window.location.search;
+console.log(queryString);
+
   const menu = (
     <Menu
       items={[
@@ -114,7 +113,7 @@ export default function Header(props) {
           </div>
           {userInfo ? <div className='nav-action'>
             <div className='action-item'>
-              <p className="my-text">Xin chào {userInfo ? userInfo.name : ""}</p>
+              <p className="my-text">Xin chào {userInfo ? userInfo.fullName : ""}</p>
             </div>
             <div className='action-item user-icon'>
               <span className="icon"><i className="fa-solid fa-user"></i></span>

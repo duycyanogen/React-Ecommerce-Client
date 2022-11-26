@@ -11,6 +11,7 @@ import { handleAddNewCart } from '../../services/cartService'
 import { Comment } from '../Cmt/Comment';
 import { CommentView } from '../Cmt/CommentView';
 import { Rate } from 'antd';
+import { ImageGroup } from '../imgComponent/ImageGroup';
 
 const dataCommentFake = [
     {
@@ -41,6 +42,14 @@ const dataCommentFake = [
       timeComment:"30 tháng 10 năm 2024",
       commentContent:"Nội dung comment"
     }
+]
+
+const dataImg = [
+    '../image/bg-footer.jpg',
+    '../image/bg-footer.jpg',
+    '../image/bg-footer.jpg',
+    '../image/bg-footer.jpg',
+    '../image/bg-footer.jpg'
 ]
 function ProductDetail(props) {
     // console.log('props', props)
@@ -187,32 +196,7 @@ function ProductDetail(props) {
                     </div>
                 </section>
                 <section className="image-zone grid-row">
-                    <div className="image-zone__left grid-column-2">
-                        <img src={product.imageURL}
-                            alt="" />
-                    </div>
-                    <div className="image-zone__right grid-column-2 grid-column">
-                        <div className="right-top grid-row-2 grid-row">
-                            <div className="top-left grid-column-2  ">
-                                <img src={product.imageURL}
-                                    alt="" />
-                            </div>
-                            <div className="top-right grid-column-2">
-                                <img src={product.imageURL}
-                                    alt="" />
-                            </div>
-                        </div>
-                        <div className="right-bottom grid-row-2 grid-row">
-                            <div className="bottom-left grid-column-2">
-                                <img src={product.imageURL}
-                                    alt="" />
-                            </div>
-                            <div className="bottom-right grid-column-2">
-                                <img src={product.imageURL}
-                                    alt="" />
-                            </div>
-                        </div>
-                    </div>
+                   <ImageGroup dataImg = {dataImg}/>
                 </section>
                 <section className="room-info">
                     <div className="room-info__benefit">
@@ -249,7 +233,7 @@ function ProductDetail(props) {
                                 </div>
                             </div> */}
                             <div className="form__button">
-                                <button onClick={() => handleAddToCart()}>Thêm vào giỏ hàng</button>
+                                <button className = 'primary-button' onClick={() => handleAddToCart()}>Thêm vào giỏ hàng</button>
                             </div>
                         </div>
                     </div>
