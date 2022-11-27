@@ -1,15 +1,18 @@
 import { React, useState, useEffect } from "react";
 import './cart.scss'
 import { getCart } from '../../services/cartService'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PayConfirmModal from "../payConfirmModal/payConfirmModal";
 import { ToastContainer, toast } from 'react-toastify';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
 import { ContainerTitle } from "../commonModules/ContainerTitle";
+import { updateActivePage } from "../../store/slice/activePage";
+
 
 const Cart = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [cartList, setCartList] = useState([]);
     const [fetching, setFetching] = useState(false)
     const userInfo = useSelector(state => state.user.userInfo);

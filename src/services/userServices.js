@@ -1,8 +1,9 @@
 import axios from 'axios'
 
 const handleLogin = (userName, password) => {
-    return axios.post('http://localhost:8889/api/v1/login', {
-        email: userName,
+    return axios.post('http://localhost:8080/account/login', {
+        // email: userName,
+        phone: userName,
         password: password
     });
 }

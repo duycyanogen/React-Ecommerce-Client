@@ -12,7 +12,6 @@ import { ContainerTitle } from "../commonModules/ContainerTitle";
 
 
 const Product = () => {
-    console.log('render');
     const [productList, setProductList] = useState([]);
     const userInfo = useSelector(state => state.user.userInfo);
     const [pageNumber, setPageNumber] = useState(1);

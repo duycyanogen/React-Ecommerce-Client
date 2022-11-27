@@ -7,6 +7,10 @@ const getAll = async () => {
     return axios.get('http://localhost:8080/flower/get');
 }
 
+const getByID = async (id) => {
+    return axios.post('http://localhost:8080/flower/get-by-id', { id: id });
+}
+
 const handleAddNewFlower = (input) => {
     debugger
     let formData = new FormData();
@@ -41,5 +45,6 @@ export {
     getAll,
     handleAddNewFlower,
     handleUpdateFlower,
-    handleDeleteFlower
+    handleDeleteFlower,
+    getByID
 }

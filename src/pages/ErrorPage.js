@@ -41,7 +41,7 @@ const GoHomeButton = styled.button`
         background-color:rgb(212, 159, 44);
   }
 `;
-export default function ErrorPage() {
+export const  ErrorPage = () => {
   // setIsUser(true);
     const navigate = useNavigate();
     return( 

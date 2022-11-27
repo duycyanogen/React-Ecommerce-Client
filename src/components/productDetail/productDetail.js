@@ -2,7 +2,7 @@
 
 //import style from './productDetail.module.scss'
 import './productDetail.scss'
-import { React, useEffect } from "react";
+import { React, useEffect, useState } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import { connect, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/index'
@@ -11,63 +11,56 @@ import { handleAddNewCart } from '../../services/cartService'
 import { Comment } from '../Cmt/Comment';
 import { CommentView } from '../Cmt/CommentView';
 import { Rate } from 'antd';
-
+import { ImageGroup } from '../imgComponent/ImageGroup';
+import { getByID } from '../../services/flowerService'
 const dataCommentFake = [
     {
-      userAvatar: '../image/bg-footer.jpg',
-      userName:"Hưng",
-      starValue:5,
-      timeComment:"30 tháng 10 năm 2024",
-      commentContent:"Nội dung comment"
+        userAvatar: '../image/bg-footer.jpg',
+        userName: "Hưng",
+        starValue: 5,
+        timeComment: "30 tháng 10 năm 2024",
+        commentContent: "Nội dung comment"
     },
     {
-      userAvatar: '../image/bg-footer.jpg',
-      userName:"Hưng",
-      starValue:3,
-      timeComment:"30 tháng 10 năm 2024",
-      commentContent:"Nội dung comment Phòng sạch sẽ, dụng cụ làm bếp có nhưng chưa đủ, thiếu thớt và dao hơi cùn. Máy lạnh có cũng như không, mình để 17 độ nhưng vẫn nóng"
+        userAvatar: '../image/bg-footer.jpg',
+        userName: "Hưng",
+        starValue: 3,
+        timeComment: "30 tháng 10 năm 2024",
+        commentContent: "Nội dung comment Phòng sạch sẽ, dụng cụ làm bếp có nhưng chưa đủ, thiếu thớt và dao hơi cùn. Máy lạnh có cũng như không, mình để 17 độ nhưng vẫn nóng"
     },
     {
-      userAvatar: '../image/bg-footer.jpg',
-      userName:"Hưng",
-      starValue:4,
-      timeComment:"30 tháng 10 năm 2024",
-      commentContent:"dụng cụ làm bếp có nhưng chưa đủ, thiếu thớt "
+        userAvatar: '../image/bg-footer.jpg',
+        userName: "Hưng",
+        starValue: 4,
+        timeComment: "30 tháng 10 năm 2024",
+        commentContent: "dụng cụ làm bếp có nhưng chưa đủ, thiếu thớt "
     },
     {
-      userAvatar: '../image/bg-footer.jpg',
-      userName:"Hưng",
-      starValue:2,
-      timeComment:"30 tháng 10 năm 2024",
-      commentContent:"Nội dung comment"
+        userAvatar: '../image/bg-footer.jpg',
+        userName: "Hưng",
+        starValue: 2,
+        timeComment: "30 tháng 10 năm 2024",
+        commentContent: "Nội dung comment"
     }
 ]
-function ProductDetail(props) {
+
+
+function ProductDetail() {
     // console.log('props', props)
-    const listProducts = useSelector(state => state.product.listProducts)
     const { id } = useParams();
-    const product = listProducts?.find((product => product.id == id))
+    const [product, setProduct] = useState(null);
     const userInfo = useSelector(state => state.user.userInfo);
     const navigate = useNavigate();
     const dataComment = dataCommentFake;
     useEffect(() => {
         async function fetchProduct() {
-            await props.getAllProduct();
+            await getByID(id).then(res => {
+                setProduct(res.data.object);
+            });
         }
         fetchProduct();
     }, []);
 
-    const showToastError = (content) => {
-        toast.error(content, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        });
-    };
 
     const showToastSuccess = (content) => {
         toast.success(content, {
@@ -81,19 +74,10 @@ function ProductDetail(props) {
         });
     };
 
-    const showToastWarning = (content) => {
-        toast.warning(content, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        });
-    };
+
 
     const handleAddToCart = async () => {
+        debugger;
         if (!userInfo) {
             navigate("/login");
             return;
@@ -107,19 +91,15 @@ function ProductDetail(props) {
 
         try {
             await handleAddNewCart(input).then(res => {
-                showToastSuccess(res.data.cartData.message)
+                showToastSuccess(res.data.object)
             })
         }
         catch (error) {
-            if (error.response) {
-                if (error.response.data) {
-                    showToastError(error.response.data.message);
-                }
-            }
+
         }
 
     }
-    
+
     const getDate = () => {
         let curDate = new Date();
         return {
@@ -131,11 +111,11 @@ function ProductDetail(props) {
 
     const getComment = (value) => {
         let time = getDate();
-        let valueComment = {...value,...time};
+        let valueComment = { ...value, ...time };
         console.log(valueComment)
         return {
-            ...value,...time
-        }        
+            ...value, ...time
+        }
     }
 
     const getAverageStar = () => {
@@ -143,9 +123,9 @@ function ProductDetail(props) {
         dataComment.map(item => {
             temp = temp + item.starValue;
         })
-        console.log(temp/dataComment.length.toFixed(1)) ;
-        
-        return temp/dataComment.length.toFixed(1);
+        console.log(temp / dataComment.length.toFixed(1));
+
+        return temp / dataComment.length.toFixed(1);
     }
 
     return (
@@ -187,42 +167,15 @@ function ProductDetail(props) {
                     </div>
                 </section>
                 <section className="image-zone grid-row">
-                    <div className="image-zone__left grid-column-2">
-                        <img src={product.imageURL}
-                            alt="" />
-                    </div>
-                    <div className="image-zone__right grid-column-2 grid-column">
-                        <div className="right-top grid-row-2 grid-row">
-                            <div className="top-left grid-column-2  ">
-                                <img src={product.imageURL}
-                                    alt="" />
-                            </div>
-                            <div className="top-right grid-column-2">
-                                <img src={product.imageURL}
-                                    alt="" />
-                            </div>
-                        </div>
-                        <div className="right-bottom grid-row-2 grid-row">
-                            <div className="bottom-left grid-column-2">
-                                <img src={product.imageURL}
-                                    alt="" />
-                            </div>
-                            <div className="bottom-right grid-column-2">
-                                <img src={product.imageURL}
-                                    alt="" />
-                            </div>
-                        </div>
-                    </div>
+                    <ImageGroup dataImg={product?.listImageURL} />
                 </section>
                 <section className="room-info">
                     <div className="room-info__benefit">
 
                         <div className="description">
-                            <h2>Thông tin đàn</h2>
+                            <h2>Thông tin sản phẩm</h2>
                             <p>• Tên:  {product.name}</p>
                             <p>• Giá bán : {product.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</p>
-                            <p>• Loại đàn: Cổ điển (Classic)</p>
-                            <p>• Dáng: Dáng D</p>
                             <p>• {product.contents}</p>
                         </div>
 
@@ -237,31 +190,20 @@ function ProductDetail(props) {
                                     <span>5({product.views} lượt xem)</span>
                                 </span>
                             </div>
-                            {/* <div className="form__body">
-                                <div className="grid-column">
-                                    <div className="grid-row grid-row-2">
-                                        <div className="grid-column-2">Nhận phòng</div>
-                                        <div className="grid-column-2">Trả phòng</div>
-                                    </div>
-                                    <div className="grid-row-2">
-                                        Khách
-                                    </div>
-                                </div>
-                            </div> */}
                             <div className="form__button">
-                                <button onClick={() => handleAddToCart()}>Thêm vào giỏ hàng</button>
+                                <button className='primary-button' onClick={() => handleAddToCart()}>Thêm vào giỏ hàng</button>
                             </div>
                         </div>
                     </div>
                 </section>
-                <Comment getComment = {getComment}/>
-                <div style={{marginTop: '40px'}}>
-                    <p style={{color:'#d1c7bc', fontSize:'16px', fontWeight:'500'}}>
-                    <Rate disabled allowHalf defaultValue={getAverageStar()} /> {getAverageStar()} <span style={{marginLeft: "20px"}}>· {dataComment.length}dánh giá</span></p>
-                    {dataComment.map((item)=>
-                      <div style={{borderBottom: "1px solid rgb(50 50 50)", marginBottom: "20px"}}>
-                        <CommentView userAvatar= {item.userAvatar} userName={item.userName} starValue={item.starValue} timeComment={item.timeComment} commentContent={item.commentContent}/>
-                      </div>
+                <Comment getComment={getComment} />
+                <div style={{ marginTop: '40px' }}>
+                    <p style={{ color: '#d1c7bc', fontSize: '16px', fontWeight: '500' }}>
+                        <Rate disabled allowHalf defaultValue={getAverageStar()} /> {getAverageStar()} <span style={{ marginLeft: "20px" }}>· {dataComment.length}dánh giá</span></p>
+                    {dataComment.map((item) =>
+                        <div style={{ borderBottom: "1px solid rgb(50 50 50)", marginBottom: "20px" }}>
+                            <CommentView userAvatar={item.userAvatar} userName={item.userName} starValue={item.starValue} timeComment={item.timeComment} commentContent={item.commentContent} />
+                        </div>
                     )}
                 </div>
 

@@ -6,11 +6,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import * as actions from '../store/actions/index'
 import { useNavigate } from 'react-router-dom';
 import UserModal from '../components/userModal/userModal';
+
 function Login(props) {
-
-
-    const userTemp = { "id": 2, "name": "1", "email": "1", "phone": "1", "address": "1", "password": "1", "created": "2022-02-15T22:11:03.213Z", "updated": null, "isDeleted": false, "idRole": 2 }
-
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -45,27 +42,25 @@ function Login(props) {
     }
 
     const handleLoginClick = async () => {
-        localStorage.setItem("user", JSON.stringify(userTemp));
-        navigate("/");
         setErrorMessage('');
-        // try {
-
-        //     await handleLogin(userName, password).then(res => {
-        //         showToastSuccess("Đăng nhập thành công!");
-        //         props.userLoginSuccess(res.data.user);
-        //         localStorage.setItem("user",userTemp );
-        //         navigate("/");
-        //     })
-        // }
-        // catch (error) {
-        //     if (error.response) {
-        //         if (error.response.data) {
-        //             setErrorMessage(error.response.data.message);
-        //             showToastError(error.response.data.message);
-        //         }
-        //     }
-        // }
-
+        try {
+            debugger;
+            await handleLogin(userName, password).then(res => {
+                showToastSuccess("Đăng nhập thành công!");
+                props.userLoginSuccess(res.data.object);
+                // localStorage.setItem("user",JSON.stringify(res.data.object) );
+                localStorage.setItem("user", JSON.stringify(res.data.object));
+                navigate("/");
+            })
+        }
+        catch (error) {
+            if (error.response) {
+                if (error.response.data) {
+                    setErrorMessage(error.response.data.message);
+                    showToastError(error.response.data.message);
+                }
+            }
+        }
     }
 
     const showToastError = (content) => {

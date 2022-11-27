@@ -18,7 +18,7 @@ const Order = () => {
     const [orderList, setOrderList] = useState([]);
     const userInfo = useSelector(state => state.user.userInfo);
     const [listUniqueTrans, setListUniqueTrans] = useState([]);
-
+    
 
     useEffect(() => {
         console.log(orderList.find(x => x.transactionID == 8));
