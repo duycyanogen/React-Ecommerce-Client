@@ -1,14 +1,18 @@
 import axios from 'axios'
 
-
-
-const handleAddNewTransaction = (input) => {
-    return axios.post('http://localhost:8889/api/v1/transaction/add', input)
+const handleGetAllTransactionByUser = (userID) => {
+    return axios.post('http://localhost:8080/transaction/get-transaction-by-user', {
+        "userID": userID
+    })
 }
 
-const handleDeleteTransaction = (input) => {
-    return axios.post('http://localhost:8889/api/v1/transaction/delete', {
-        id: input
+const handleAddNewTransaction = (input) => {
+    return axios.post('http://localhost:8080/transaction/add-transaction', input)
+}
+
+const handleDeleteTransaction = (transactionID) => {
+    return axios.post('http://localhost:8080/transaction/cancel-transaction', {
+        id: transactionID
     })
 }
 
@@ -16,5 +20,6 @@ const handleDeleteTransaction = (input) => {
 
 export {
     handleAddNewTransaction,
-    handleDeleteTransaction
+    handleDeleteTransaction,
+    handleGetAllTransactionByUser
 }

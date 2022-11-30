@@ -31,10 +31,6 @@ export default function PayConfirmModal(props) {
         props.showToastError(content);
     }
 
-    const showToastWarning = (content) => {
-        props.showToastWarning(content);
-    }
-
     const showToastSuccess = (content) => {
         props.showToastSuccess(content);
     }
@@ -44,26 +40,28 @@ export default function PayConfirmModal(props) {
     }
 
     const createOrder = async () => {
+        debugger;
         let orderRequest = {};
         let listCartTemp = props.payUserInfo?.listCart.map(item => {
             return {
-                ...item,
+                idFlower: item.idFlower,
+                quantity: item.quantity,
                 amount: item.quantity * item.price * (100 - item.discount) / 100
             }
         })
-        orderRequest.listCart = listCartTemp;
+        orderRequest.shopCartId = props.payUserInfo?.listCart[0].id;
+        orderRequest.lstOrderRequest = listCartTemp;
         orderRequest.userID = props.payUserInfo?.userID;
-        orderRequest.customerName = name;
-        orderRequest.customerEmail = email;
-        orderRequest.customerPhone = phone;
-        orderRequest.customerAddress = address;
+        orderRequest.recipientName = name;
+        orderRequest.recipientEmail = email;
+        orderRequest.recipientPhone = phone;
+        orderRequest.recipientAddress = address;
         orderRequest.amount = amount;
         orderRequest.message = note;
-        orderRequest.status = 0;
         orderRequest.note = note;
         try {
             await handleAddNewTransaction(orderRequest).then(res => {
-                showToastSuccess("Đặt hàng thành công");
+                showToastSuccess(res.data.object);
                 toggle();
                 fetch();
             })

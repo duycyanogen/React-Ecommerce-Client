@@ -1,8 +1,7 @@
 import { React, useState, useEffect } from "react";
 import './order.scss'
-import { getOrder } from '../../services/orderServices'
+import { handleGetAllTransactionByUser } from '../../services/transactionService'
 import { useSelector } from 'react-redux';
-import PayConfirmModal from "../payConfirmModal/payConfirmModal";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { handleDeleteTransaction } from '../../services/transactionService'
@@ -18,13 +17,12 @@ const Order = () => {
     const [orderList, setOrderList] = useState([]);
     const userInfo = useSelector(state => state.user.userInfo);
     const [listUniqueTrans, setListUniqueTrans] = useState([]);
-    
+
 
     useEffect(() => {
-        console.log(orderList.find(x => x.transactionID == 8));
-        async function fetchorder() {
-            await getOrder(userInfo.id).then(res => {
-                let listTrans = res.data.orderData;
+        async function fetchTransaction() {
+            await handleGetAllTransactionByUser(userInfo.id).then(res => {
+                let listTrans = res.data.object;
                 let ids = [];
                 listTrans.forEach((item) => {
                     ids.push(item.transactionID);
@@ -38,7 +36,7 @@ const Order = () => {
                 }));
             });
         }
-        fetchorder();
+        fetchTransaction();
     }, []);
 
 
@@ -55,7 +53,7 @@ const Order = () => {
 
         try {
             await handleDeleteTransaction(transactionID).then(res => {
-                showToastSuccess("Hủy đơn hàng thành công");
+                showToastSuccess(res.data.object);
                 toggle();
                 fetch();
             })
@@ -76,8 +74,8 @@ const Order = () => {
     }
 
     const fetch = async () => {
-        await getOrder(userInfo.id).then(res => {
-            let listTrans = res.data.orderData;
+        await handleGetAllTransactionByUser(userInfo.id).then(res => {
+            let listTrans = res.data.object;
             let ids = [];
             listTrans.forEach((item) => {
                 ids.push(item.transactionID);
@@ -133,30 +131,6 @@ const Order = () => {
         });
     };
 
-    // TABLE
-    const dataSource = [
-        {
-            key: '1',
-            img: 'http://localhost:8889/api/v1/image1?imageName=dan2_600x600.jpg',
-            name: 'sản phẩm 1',
-            count: '2',
-            money: 20,
-        },
-        {
-            key: '2',
-            img: 'http://localhost:8889/api/v1/image1?imageName=dan1_600x600.jpg',
-            name: 'sản phẩm 2',
-            count: '5',
-            money: 50,
-        },
-        {
-            key: '1',
-            img: 'http://localhost:8889/api/v1/image1?imageName=dan2_600x600.jpg',
-            name: 'sản phẩm 1',
-            count: '2',
-            money: 20,
-        }
-    ];
 
     const columns = [
         {
@@ -220,12 +194,12 @@ const Order = () => {
                                                 <tr className="order-table-content" key={index}>
                                                     {/* <td className="bold-text red-text order-table-desktop" style={{ textAlign: "center", verticalAlign: "middle" }}>{order.transactionID}</td> */}
                                                     <td className="order-table-image-info" style={{ textAlign: "center", verticalAlign: "middle" }}><img src={order.imageURL} /></td>
-                                                    <td className="bold-text order-table-desktop" style={{ textAlign: "center", verticalAlign: "middle" }}>{order.name}</td>
+                                                    <td className="bold-text order-table-desktop" style={{ textAlign: "center", verticalAlign: "middle" }}>{order.flowerName}</td>
                                                     <td className="order-table-desktop" style={{ textAlign: "center", verticalAlign: "middle" }}>
                                                         <p>{order.quantity}</p>
                                                     </td>
                                                     <td className="order-table-desktop" style={{ textAlign: "center", verticalAlign: "middle" }}><span className="bold-text" >{order.amount.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></td>
-                                                    <td className="order-table-desktop" style={{ textAlign: "center", verticalAlign: "middle" }}>{order.finalStatus}</td>
+                                                    <td className="order-table-desktop" style={{ textAlign: "center", verticalAlign: "middle" }}>{order.transacitionStatusName}</td>
                                                     {/* <td className="order-table-icon red-text right-text-mobile" style={{ textAlign: "center", verticalAlign: "middle" }}><i className="fa fa-close"></i></td> */}
                                                 </tr>
                                             )
@@ -253,18 +227,9 @@ const Order = () => {
                             </div>
                         )
                     })}
-                    <TableCustom dataTable={dataSource} columnsTable={columns} pageSize={2} />
+                    {/* <TableCustom dataTable={dataSource} columnsTable={columns} pageSize={2} /> */}
                 </div>
                 <ToastContainer />
-                {/* <PayConfirmModal
-                    payUserInfo={orderReq}
-                    isOpen={isOpenChildModal}
-                    toggle={toggle}
-                    showToastError={showToastError}
-                    showToastWarning={showToastWarning}
-                    showToastSuccess={showToastSuccess}
-                    fetch={fetch}
-                /> */}
             </div>
 
         ) : <p className='primary-title'>Chưa có sản phẩm nào</p>

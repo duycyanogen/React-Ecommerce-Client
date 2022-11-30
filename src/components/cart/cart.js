@@ -11,15 +11,13 @@ import { updateActivePage } from "../../store/slice/activePage";
 
 
 const Cart = () => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+
     const [cartList, setCartList] = useState([]);
-    const [fetching, setFetching] = useState(false)
     const userInfo = useSelector(state => state.user.userInfo);
     const orderReq = {
         "listCart": cartList,
         "userID": userInfo?.id,
-        "customerName": userInfo?.name,
+        "customerName": userInfo?.fullName,
         "customerEmail": userInfo?.email,
         "customerPhone": userInfo?.phone,
         "customerAddress": userInfo?.address,
@@ -48,12 +46,11 @@ const Cart = () => {
         setIsOpenChildModal(true);
     }
 
-    // const fetch = async () => {
-    //     await getCart(userInfo.id).then(res => {
-    //         console.log(res);
-    //         setCartList(res.data.object);
-    //     });
-    // }
+    const fetch = async () => {
+        await getCart(userInfo.id).then(res => {
+            setCartList(res.data.object);
+        });
+    }
 
 
     const toggle = () => {

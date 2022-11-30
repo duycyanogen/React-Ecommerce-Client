@@ -84,9 +84,9 @@ function ProductDetail() {
         }
         let input = {
             userID: userInfo.id,
-            idGuitar: id,
+            idFlower: id,
             quantity: 1,
-            amount: 1
+            amount: product.price
         }
 
         try {
