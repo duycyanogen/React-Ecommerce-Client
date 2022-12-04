@@ -2,9 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import { Rate } from 'antd';
 
-const CommentViewStyled =  styled.div`
+const CommentViewStyled = styled.div`
     .header {
         display: flex;
+        flex-wrap: wrap;
         justify-content: flex-start ;
         align-items: center ;
         height: 60px;
@@ -56,26 +57,29 @@ const CommentViewStyled =  styled.div`
         }
     }
 `
-export const  CommentView = (props) => {
-  const {userAvatar, userName, starValue, timeComment, commentContent} = props;
+export const CommentView = (props) => {
+  const { userAvatar, userName, starValue, timeComment, commentContent } = props;
 
- 
+
   return (
     <CommentViewStyled>
-      <div className='header'>
-        <div className='header__left'>
+
+      <div className="comments__item grid-column-2">
+        <div className='header'>
+          <div className='header__left'>
             <div className='header__left__avt'>
-              <img src={userAvatar}/>
+              <img src={userAvatar} />
             </div>
-        </div>
-        <div className='header__right'>
+          </div>
+          <div className='header__right'>
             <p className='header__right__name'>{userName}</p>
             <Rate disabled defaultValue={starValue} />;
+          </div>
         </div>
-      </div>
-      <div className='main'>
-        <span className='main__time'>{timeComment}</span>
-        <p className='main__content'>{commentContent}</p>
+        <div className='main'>
+          <span className='main__time'>{timeComment}</span>
+          <p className='main__content'>{commentContent}</p>
+        </div>
       </div>
     </CommentViewStyled>
   )

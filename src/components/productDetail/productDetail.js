@@ -12,7 +12,8 @@ import { Comment } from '../Cmt/Comment';
 import { CommentView } from '../Cmt/CommentView';
 import { Rate } from 'antd';
 import { ImageGroup } from '../imgComponent/ImageGroup';
-import { getByID } from '../../services/flowerService'
+import Gallery from "../gallery/Gallery";
+import { getByID, handleAddRatingFlower, handleGetRatingFlower } from '../../services/flowerService'
 const dataCommentFake = [
     {
         userAvatar: '../image/bg-footer.jpg',
@@ -51,7 +52,7 @@ function ProductDetail() {
     const [product, setProduct] = useState(null);
     const userInfo = useSelector(state => state.user.userInfo);
     const navigate = useNavigate();
-    const dataComment = dataCommentFake;
+    const [comments, setComments] = useState([]);
     useEffect(() => {
         async function fetchProduct() {
             await getByID(id).then(res => {
@@ -59,6 +60,7 @@ function ProductDetail() {
             });
         }
         fetchProduct();
+        fetchComments();
     }, []);
 
 
@@ -74,7 +76,24 @@ function ProductDetail() {
         });
     };
 
+    //handleGetRatingFlower
 
+    const fetchComments = async () => {
+
+        let input = {
+            idFlower: id,
+        }
+
+        try {
+            await handleGetRatingFlower(input).then(res => {
+                setComments(res.data.object)
+            })
+        }
+        catch (error) {
+
+        }
+
+    }
 
     const handleAddToCart = async () => {
         debugger;
@@ -100,32 +119,38 @@ function ProductDetail() {
 
     }
 
-    const getDate = () => {
-        let curDate = new Date();
-        return {
-            curDate: curDate.getDate(),
-            curMonth: curDate.getMonth() + 1,
-            curYear: curDate.getFullYear()
-        }
-    }
 
-    const getComment = (value) => {
-        let time = getDate();
-        let valueComment = { ...value, ...time };
-        console.log(valueComment)
-        return {
-            ...value, ...time
+
+    const handleAddRating = async (comment, score) => {
+        if (!userInfo) {
+            navigate("/login");
+            return;
         }
+        let input = {
+            userID: userInfo.id,
+            idFlower: id,
+            comment: comment,
+            score: score
+        }
+        try {
+            await handleAddRatingFlower(input).then(res => {
+                fetchComments();
+                showToastSuccess(res.data.object)
+            })
+        }
+        catch (error) {
+
+        }
+
     }
 
     const getAverageStar = () => {
         let temp = 0;
-        dataComment.map(item => {
-            temp = temp + item.starValue;
+        comments.map(item => {
+            temp = temp + item.score;
         })
-        console.log(temp / dataComment.length.toFixed(1));
-
-        return temp / dataComment.length.toFixed(1);
+        // console.log(temp / dataComment.length.toFixed(1));
+        return (temp / comments.length).toFixed(2);
     }
 
     return (
@@ -167,7 +192,8 @@ function ProductDetail() {
                     </div>
                 </section>
                 <section className="image-zone grid-row">
-                    <ImageGroup dataImg={product?.listImageURL} />
+                    <Gallery fileURLs={product?.listImageURL} />
+                    {/* <ImageGroup dataImg={product?.listImageURL} /> */}
                 </section>
                 <section className="room-info">
                     <div className="room-info__benefit">
@@ -196,152 +222,37 @@ function ProductDetail() {
                         </div>
                     </div>
                 </section>
-                <Comment getComment={getComment} />
-                <div style={{ marginTop: '40px' }}>
-                    <p style={{ color: '#d1c7bc', fontSize: '16px', fontWeight: '500' }}>
-                        <Rate disabled allowHalf defaultValue={getAverageStar()} /> {getAverageStar()} <span style={{ marginLeft: "20px" }}>· {dataComment.length}dánh giá</span></p>
-                    {dataComment.map((item) =>
-                        <div style={{ borderBottom: "1px solid rgb(50 50 50)", marginBottom: "20px" }}>
-                            <CommentView userAvatar={item.userAvatar} userName={item.userName} starValue={item.starValue} timeComment={item.timeComment} commentContent={item.commentContent} />
-                        </div>
-                    )}
-                </div>
+                <Comment handleAddRating={(comment, score) => handleAddRating(comment, score)} />
+
 
                 <section className="comment-rating">
                     <div className="comment-rating__heading">
                         <span className="comment-rating__star-icon"><i className="fas fa-star"></i></span>
-                        <span className="comment-rating__average-rating">4,51</span>
-                        <span className="comment-rating__rating-amount">· 216 đánh giá</span>
+                        <span className="comment-rating__average-rating">{getAverageStar()}</span>
+                        <span className="comment-rating__rating-amount">· {comments.length} đánh giá</span>
                     </div>
                     <div className="comments grid-row">
-                        <div className="comments__item grid-column-2">
-                            <div className="comments__item-header">
-                                <div className="comments__item-avatar">
-                                    <img src="https://images.unsplash.com/photo-1633092468175-2f68b173e4e4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=764&q=80"
-                                        alt="" />
+                        {
+                            (comments && comments.length) && comments.map(comment => {
+                                return <div className="comments__item grid-column-2">
+                                    <div className="comments__item-header">
+                                        <div className="comments__item-avatar">
+                                            <img src="https://images.unsplash.com/photo-1633092468175-2f68b173e4e4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=764&q=80"
+                                                alt="" />
+                                        </div>
+                                        <div className="comment__item-author">
+                                            <div className="comments__item-name">{comment.ownerName}</div>
+                                            <div className="comments__item-date">{comment.created}</div>
+                                            <Rate disabled style={{ fontSize: 12 }} defaultValue={comment.score} />;
+                                        </div>
+                                    </div>
+                                    <div className="comments__item-content">
+                                        <span>{comment.comment}</span>
+                                    </div>
                                 </div>
-                                <div className="comment__item-author">
-                                    <div className="comments__item-name">Văn Minh</div>
-                                    <div className="comments__item-date">tháng 6 năm 2021</div>
-                                </div>
-                            </div>
-                            <div className="comments__item-content">
-                                <span>Vị trí phòng thuận lợi, tuy nhiên phòng chỉ được 50%-60% trong ảnh. Cần cải thiện thêm về
-                                    độ sạch sẽ, máy lạnh yếu.</span>
-                            </div>
-                        </div>
-                        <div className="comments__item grid-column-2">
-                            <div className="comments__item-header">
-                                <div className="comments__item-avatar">
-                                    <img src="https://images.unsplash.com/photo-1471897488648-5eae4ac6686b?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"
-                                        alt="" />
-                                </div>
-                                <div className="comment__item-author">
-                                    <div className="comments__item-name">Ngọc Đại </div>
-                                    <div className="comments__item-date">tháng 6 năm 2021</div>
-                                </div>
-                            </div>
-                            <div className="comments__item-content">
-                                <span>Mọi thứ khá là ok. Chỉ tiếc là điều hoà chạy quá yếu như hết gas. Chủ nhà nên thay gas
-                                    hoặc bảo dưỡng lại điều hoà. Mình thì ko chịu đc nóng nên thường về phòng bật điều hoà mức
-                                    nhỏ nhất nhưng mãi chả thấy mát</span>
-                            </div>
-                        </div>
-                        <div className="comments__item grid-column-2">
-                            <div className="comments__item-header">
-                                <div className="comments__item-avatar">
-                                    <img src="https://images.unsplash.com/photo-1633085272509-43df38a78aed?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"
-                                        alt="" />
-                                </div>
-                                <div className="comment__item-author">
-                                    <div className="comments__item-name">Minh Đoan</div>
-                                    <div className="comments__item-date">tháng 5 năm 2021</div>
-                                </div>
-                            </div>
-                            <div className="comments__item-content">
-                                <span>Phòng sạch sẽ, dụng cụ làm bếp có nhưng chưa đủ, thiếu thớt và dao hơi cùn. Máy lạnh có
-                                    cũng như không, mình để 17 độ nhưng vẫn nóng.</span>
-                            </div>
-                        </div>
-                        <div className="comments__item grid-column-2">
-                            <div className="comments__item-header">
-                                <div className="comments__item-avatar">
-                                    <img src="https://images.unsplash.com/photo-1593642531955-b62e17bdaa9c?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1169&q=80"
-                                        alt="" />
-                                </div>
-                                <div className="comment__item-author">
-                                    <div className="comments__item-name">Hưng</div>
-                                    <div className="comments__item-date">tháng 6 năm 2021</div>
-                                </div>
-                            </div>
-                            <div className="comments__item-content">
-                                <span>Chỗ ở tốt để chill cùng bạn bè người yêu</span>
-                            </div>
-                        </div>
-                        <div className="comments__item grid-column-2">
-                            <div className="comments__item-header">
-                                <div className="comments__item-avatar">
-                                    <img src="https://images.unsplash.com/photo-1567000833363-b25413f86c35?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=764&q=80"
-                                        alt="" />
-                                </div>
-                                <div className="comment__item-author">
-                                    <div className="comments__item-name">Mai</div>
-                                    <div className="comments__item-date">tháng 5 năm 2021</div>
-                                </div>
-                            </div>
-                            <div className="comments__item-content">
-                                <span>Vị trí thuận tiện. Anh chủ rất dth và nhiệt tình. Mọi thứ đều khá tốt như mong đợi của
-                                    mình. ❤️</span>
-                            </div>
-                        </div>
-                        <div className="comments__item grid-column-2">
-                            <div className="comments__item-header">
-                                <div className="comments__item-avatar">
-                                    <img src="https://images.unsplash.com/photo-1632950154909-b52702d4b994?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=764&q=80"
-                                        alt="" />
-                                </div>
-                                <div className="comment__item-author">
-                                    <div className="comments__item-name">Khách</div>
-                                    <div className="comments__item-date">tháng 5 năm 2021</div>
-                                </div>
-                            </div>
-                            <div className="comments__item-content">
-                                <span>Chỗ ở thuận lợi cho việc đi lại, phòng sạch sẽ, mát, sẽ quay lại nếu có dịp</span>
-                            </div>
-                        </div>
-                        <div className="comments__item grid-column-2">
-                            <div className="comments__item-header">
-                                <div className="comments__item-avatar">
-                                    <img src="https://images.unsplash.com/photo-1632952745637-a104d96d8405?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=735&q=80"
-                                        alt="" />
-                                </div>
-                                <div className="comment__item-author">
-                                    <div className="comments__item-name">Trấn Thành</div>
-                                    <div className="comments__item-date">tháng 5 năm 2021</div>
-                                </div>
-                            </div>
-                            <div className="comments__item-content">
-                                <span>Hạ tầng dịch vụ cần cải thiện</span>
-                            </div>
-                        </div>
-                        <div className="comments__item grid-column-2">
-                            <div className="comments__item-header">
-                                <div className="comments__item-avatar">
-                                    <img src="https://images.unsplash.com/photo-1632945273090-daa594d65885?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"
-                                        alt="" />
-                                </div>
-                                <div className="comment__item-author">
-                                    <div className="comments__item-name">Alex</div>
-                                    <div className="comments__item-date">tháng 6 năm 2021</div>
-                                </div>
-                            </div>
-                            <div className="comments__item-content">
-                                <span>Good place</span>
-                            </div>
-                        </div>
-                        <button className="show-more-comments">
-                            Hiển thị tất cả 216 đánh giá
-                        </button>
+                            })
+                        }
+
                     </div>
                 </section>
                 <section className="about-owner">

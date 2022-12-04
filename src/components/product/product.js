@@ -119,11 +119,11 @@ const Product = () => {
         });
     };
     return (
-        listRender && listRender.length > 0 ? (
-            <div className="product-page">
-                <ContainerTitle title='Quản lý sản phẩm' />
-                <div className="product-page-container">
 
+        <div className="product-page">
+            <ContainerTitle title='Quản lý sản phẩm' />
+            {listRender && listRender.length > 0 ?
+                <div className="product-page-container">
                     <div className="product-page-table">
                         <table className="product-table-product">
                             <thead>
@@ -153,36 +153,31 @@ const Product = () => {
                                                 <button className="primary-button" onClick={() => deleteProduct(product.id)}>Xóa</button></div></td>
                                         </tr>
                                     )
-
                                 })}
-
-
                             </tbody>
                         </table>
                     </div>
-                    <div className="product-header-footer">
-                        <div className="product-page-index">
-                            <button className="product-header-cta" style={{ marginRight: "5px" }} onClick={() => handlePrev()}><DoubleLeftOutlined /></button>
-                            <p className="list-product-footer__index">Page {pageNumber} </p>
-                            <button className="product-header-cta" style={{ marginRight: "5px" }} onClick={() => handleNext()}><DoubleRightOutlined /></button>
-                        </div>
-                        <button href="#" className="primary-button" target="_blank" onClick={() => showModal()}>Thêm mới sản phẩm</button>
-                    </div>
+                </div> : <p className='primary-title'>Chưa có sản phẩm nào</p>
+            }
+            <div className="product-header-footer">
+                <div className="product-page-index">
+                    <button className="product-header-cta" style={{ marginRight: "5px" }} onClick={() => handlePrev()}><DoubleLeftOutlined /></button>
+                    <p className="list-product-footer__index">Page {pageNumber} </p>
+                    <button className="product-header-cta" style={{ marginRight: "5px" }} onClick={() => handleNext()}><DoubleRightOutlined /></button>
                 </div>
-                <FlowerModal
-                    productInfo={productInfo}
-                    isOpen={isOpenChildModal}
-                    toggle={toggle}
-                    showToastError={showToastError}
-                    showToastWarning={showToastWarning}
-                    showToastSuccess={showToastSuccess}
-                    fetch={fetch}
-                />
-                <ToastContainer />
+                <button href="#" className="primary-button" target="_blank" onClick={() => showModal()}>Thêm mới sản phẩm</button>
             </div>
-
-        ) : <p className='primary-title'>Chưa có sản phẩm nào</p>
-
+            <FlowerModal
+                productInfo={productInfo}
+                isOpen={isOpenChildModal}
+                toggle={toggle}
+                showToastError={showToastError}
+                showToastWarning={showToastWarning}
+                showToastSuccess={showToastSuccess}
+                fetch={fetch}
+            />
+            <ToastContainer />
+        </div>
     )
 }
 

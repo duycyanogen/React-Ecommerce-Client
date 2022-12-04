@@ -26,18 +26,6 @@ export default function Header(props) {
     setIsOpenChildModal(!isOpenChildModal);
   }
 
-  const showToastError = (content) => {
-    toast.error(content, {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
-
   const showToastSuccess = (content) => {
     toast.success(content, {
       position: "top-right",
@@ -147,7 +135,16 @@ export default function Header(props) {
                   <span className="icon"><i className="fas fa-file-video"></i></span>
                   <span className="title">Đơn hàng</span>
                 </Link>
-              </li>{
+              </li>
+              {
+                // (userInfo && userInfo.idRole == 1) && 
+                <li className={activePage == 'transactionmanager' ? 'menu-item-active' : ''}>
+                  <Link to="/transactionmanager" onClick={() => { dispatch(updateActivePage("transactionmanager")) }}>
+                    <span className="icon"><i className="fas fa-volleyball-ball"></i></span>
+                    <span className="title">Quản lý đơn hàng</span>
+                  </Link></li>
+              }
+              {
                 (userInfo && userInfo.idRole == 1) && <li className={activePage == 'products' ? 'menu-item-active' : ''}>
                   <Link to="/products" onClick={() => { dispatch(updateActivePage("products")) }}>
                     <span className="icon"><i className="fas fa-volleyball-ball"></i></span>

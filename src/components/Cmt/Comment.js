@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef} from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import styled from 'styled-components'
 import { Input } from 'antd';
 import { Rate } from 'antd';
@@ -42,55 +42,54 @@ const CommentStyled = styled.div`
     }
 `
 export const Comment = (props) => {
-  const getComment = props.getComment;
-  const [valueStar, setValueStar] = useState(3);
+  const handleAddRating = props.handleAddRating;
+  const [valueStar, setValueStar] = useState(5);
   const [valueContent, setValueContent] = useState('');
   const { TextArea } = Input;
-  const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
- 
-  useEffect(()=> {
+  const desc = ['Kinh khủng', 'Tệ', 'Bình thường', 'Tốt', 'Tuyệt vời'];
+
+  useEffect(() => {
     getValueStar()
-  },[valueStar])
+  }, [valueStar])
 
   const getValueStar = () => {
-    console.log('valueStar',valueStar);
     return valueStar;
   }
-  
+
   const handleOnChangeInput = (e) => {
-    console.log(e.target.value)
     setValueContent(e.target.value)
   }
-  
-  const handleSubmitComment = () => {
-    getComment({valueContent:valueContent, valueStar: valueStar});
-  } ;
+
+  const handleSubmitComment = async () => {
+    debugger
+    await handleAddRating(valueContent, valueStar);
+  };
 
   const handleCancelComment = () => {
     setValueContent('')
-  }  
+  }
   return (
     <CommentStyled>
-        <p className = 'title'>Bạn có hài lòng về sản phẩm: </p>
-        <div className='star-block'>
+      <p className='title'>Bạn có hài lòng về sản phẩm: </p>
+      <div className='star-block'>
         <div>
           <Rate tooltips={desc} onChange={setValueStar} value={valueStar} />
           {valueStar ? <span className="ant-rate-text">{desc[valueStar - 1]}</span> : ''}
         </div>
-        </div>
-        <p className='text'>Nhận xét: (Ý kiến của bạn sẽ thêm thông tin cho nhiều người mua khác)</p>
-        
-        <div className='content'>
-        <TextArea rows={4} value = {valueContent} placeholder="Viết bình luận của bạn" maxLength={1000} onChange ={handleOnChangeInput} />
-        </div>
-        <div className='btn'>
-            <button className='primary-button' onClick={handleSubmitComment}>Đánh giá</button>
-            <button className='primary-button' onClick={handleCancelComment}>Hủy</button>
-        </div>
+      </div>
+      <p className='text'>Nhận xét: (Ý kiến của bạn sẽ thêm thông tin cho nhiều người mua khác)</p>
+
+      <div className='content'>
+        <TextArea rows={4} value={valueContent} placeholder="Viết bình luận của bạn" maxLength={1000} onChange={handleOnChangeInput} />
+      </div>
+      <div className='btn'>
+        <button className='primary-button' onClick={handleSubmitComment}>Đánh giá</button>
+        <button className='primary-button' onClick={handleCancelComment}>Hủy</button>
+      </div>
     </CommentStyled>
   )
 }
-  
+
 
 
 

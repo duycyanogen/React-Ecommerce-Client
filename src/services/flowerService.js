@@ -22,7 +22,6 @@ const handleAddNewFlower = (input) => {
     for (const file of input.files) {
         formData.append('files', file);
     }
-
     return axios.post('http://localhost:8080/flower/add-flower', formData)
 }
 
@@ -41,10 +40,26 @@ const handleDeleteFlower = (id) => {
     return axios.post('http://localhost:8080/flower/delete-flower', { id: id })
 }
 
+const handleGetRatingFlower = async (ratingRequest) => {
+    return axios.post('http://localhost:8080/rating/get-by-product', { idFlower: ratingRequest.idFlower });
+}
+
+const handleAddRatingFlower = async (ratingRequest) => {
+    return axios.post('http://localhost:8080/rating/add-rating', {
+        userID: ratingRequest.userID,
+        idFlower: ratingRequest.idFlower,
+        comment: ratingRequest.comment,
+        score: ratingRequest.score
+
+    });
+}
+
 export {
     getAll,
     handleAddNewFlower,
     handleUpdateFlower,
     handleDeleteFlower,
-    getByID
+    getByID,
+    handleGetRatingFlower,
+    handleAddRatingFlower
 }
