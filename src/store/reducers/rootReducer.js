@@ -1,13 +1,15 @@
 import productReducer from "./productReducer";
 import userReducer from "./userReducer";
 import activePageReducer from '../slice/activePage'
+import statisticsReducer from '../slice/statisticsSlice'
 import { combineReducers } from 'redux';
 import storage from 'redux-persist/lib/storage'
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 const rootReducer = combineReducers({
     product: productReducer,
     user: userReducer,
-    activePage:  activePageReducer
+    activePage:  activePageReducer,
+    statistics:  statisticsReducer
 })
 
 const persistCommonConfig = {

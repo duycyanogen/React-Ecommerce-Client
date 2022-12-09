@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { Footer } from '../footer/Footer';
 import { updateActivePage } from '../../store/slice/activePage';
 import { activePageSelector } from '../../store/selectors';
+import { getStatisticsData } from '../../services/statisticsService';
 
 export default function Header(props) {
   const userInfo = useSelector(state => state.user.userInfo);
@@ -78,6 +79,10 @@ export default function Header(props) {
       ]}
     />
   );
+
+  const handleLoadStatisticsPage = ()=> {
+     dispatch(updateActivePage("statistics"));
+  }
 
   return (
     <>
@@ -158,7 +163,7 @@ export default function Header(props) {
                 </Link>
               </li>
               {(userInfo && userInfo.idRole == 1) && <li className={activePage == 'statistics' ? 'menu-item-active' : ''}>
-                <Link to='/statistics' onClick={() => { dispatch(updateActivePage("statistics")) }}>
+                <Link to='/statistics' onClick={handleLoadStatisticsPage}>
                   <span className="icon"><SettingOutlined /></span>
                   <span className="title">Thống kê</span>
                 </Link>

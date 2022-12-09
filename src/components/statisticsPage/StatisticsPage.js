@@ -5,6 +5,9 @@ import { MyChart } from '../commonModules/chart/MyChart'
 import { DatePickerCustom } from '../commonModules/DatePickerCustom';
 import { SelectCustom } from '../commonModules/SelectCustom';
 import { ContainerTitle } from '../commonModules/ContainerTitle';
+import { useDispatch, useSelector } from 'react-redux';
+import { statisticsSelector } from '../../store/selectors';
+import { getStatisticsData } from '../../services/statisticsService';
 
 const StatisticsPageStyled = styled.div`
   .date-picker-custom {
@@ -36,7 +39,11 @@ const dataChart = [
   ];
 
 export const  StatisticsPage = () => {
-   
+  const dispatch = useDispatch();
+  const statisticsData = useSelector(statisticsSelector);
+  useEffect(()=> {
+    getStatisticsData(dispatch);
+  },[])
   return (
     <StatisticsPageStyled>
       <ContainerTitle title = 'Thống kê'/>
