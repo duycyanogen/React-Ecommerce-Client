@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { updateStatistics } from '../store/slice/statisticsSlice';
 
-export const getStatisticsData = async(dispatch, dates) => {
+export const getStatisticsData = async(dates) => {
     try {
         const res = await axios.post('http://localhost:8080/stat/get-revenue',{
             dateTo:[dates[0]],

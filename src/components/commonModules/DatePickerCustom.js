@@ -6,12 +6,11 @@ import { getStatisticsData } from '../../services/statisticsService';
 const { RangePicker } = DatePicker;
 export const DatePickerCustom = (props) => {
   const getChartData = props.getChartData;
-  const dispatch =  useDispatch();
   const [dates, setDates] = useState(['','']);
   const [dataChart,setDataChart] = useState([]);
 
  const handleData = async ()=> {
-  let tempData = await getStatisticsData(dispatch,dates)
+  let tempData = await getStatisticsData(dates)
   await setDataChart(tempData);
   getChartData(dataChart);
  }
