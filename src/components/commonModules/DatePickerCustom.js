@@ -1,16 +1,30 @@
 import { DatePicker, Space } from 'antd';
 import moment from 'moment';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { getStatisticsData } from '../../services/statisticsService';
 const { RangePicker } = DatePicker;
 export const DatePickerCustom = (props) => {
-  const [dates, setDates] = useState([])
-  // console.log(dates)
+  const getChartData = props.getChartData;
+  const dispatch =  useDispatch();
+  const [dates, setDates] = useState(['','']);
+  const [dataChart,setDataChart] = useState([]);
+
+ const handleData = async ()=> {
+  let tempData = await getStatisticsData(dispatch,dates)
+  await setDataChart(tempData);
+  getChartData(dataChart);
+ }
+  useEffect(()=> {
+    if(dates[0]!='')
+    handleData();
+  },[dates])
 
   return (
-    <RangePicker format="YYYY-MM-DD" className = {props.className} onChange={(values) => {
-         setDates(values.map(item=>{
-           return  moment(item).format('YYYY-DD-MM')
-         }))
+    <RangePicker format="DD-MM-YYYY" className = {props.className} onChange={(values) => {
+       setDates(values.map(item=>{
+          return  moment(item).format('DD-MM-YYYY').replaceAll('-','/')
+       }));
        }} />
   )
 }

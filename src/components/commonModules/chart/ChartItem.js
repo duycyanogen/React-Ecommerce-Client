@@ -27,9 +27,9 @@ const dataSelect  = [
 ]
 
 export const ChartItem = (props) => {
-    const dataChart = props.dataChart;
     const [chartTypeRender,setChartTypeRender] = useState('Bar chart');
     const [chartType,setChartType] = useState('bar');
+    const [dataChart,setDataChart] = useState([]);
    
     useEffect(()=> {
         handleChangeChartType();
@@ -39,8 +39,15 @@ export const ChartItem = (props) => {
         setChartTypeRender(value);
     }
 
+    const getChartData = (data) => {
+        console.log('data chart', data);
+        if(data) {
+            setDataChart(data);
+        }
+        return data;
+    }
+
     const handleChangeChartType = () => {
-       
            if(chartTypeRender== 'Bar chart'){
                 setChartType('bar');
                return
@@ -54,14 +61,15 @@ export const ChartItem = (props) => {
            if(chartTypeRender== 'Pie chart'){
             setChartType('pie');
             };
-        }
+    }
+
   return (
     <ChartItemStyled>
       <div className='chart-option'>
-         <DatePickerCustom className='date-picker-custom'/>
+         <DatePickerCustom className='date-picker-custom' getChartData={getChartData}/>
          <SelectCustom dataSelect = {dataSelect} getValue = {getValue}/>
       </div>
-      <MyChart dataChart= {dataChart} labelChart = 'label 1' chartType = {chartType}/>
+      <MyChart dataChart= {dataChart} labelChart = 'time' chartType = {chartType}/>
     </ChartItemStyled>
   )
 }

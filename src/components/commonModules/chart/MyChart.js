@@ -30,7 +30,7 @@ export const  MyChart = (props) => {
     const labelChart = props.labelChart;
     const chartType = props.chartType;
     const [dataRender, setDataRender] = useState({
-        labels: dataChart?.map((data) => data.year),
+        labels: dataChart?.map((data) => data.time),
         datasets: [
           {
             label: labelChart,

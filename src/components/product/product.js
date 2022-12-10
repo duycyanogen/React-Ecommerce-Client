@@ -30,7 +30,7 @@ const Product = () => {
     }
 
     useEffect(() => {
-        debugger;
+        // debugger;
         async function fetchProduct() {
             await getAll().then(res => {
                 setProductList(res.data.object.sort((a, b) => {
