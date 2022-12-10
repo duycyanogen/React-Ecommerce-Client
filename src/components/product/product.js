@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import './product.scss'
 import { getAll, handleDeleteFlower } from '../../services/flowerService'
 import { useSelector } from 'react-redux';
-import FlowerModal from "../flowerModal/flowerModal";
+import FlowerModal from "../flowerModal/FlowerModal";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 
