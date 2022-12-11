@@ -17,7 +17,6 @@ import ProtectedRoute from "./components/layout/ProtectedRoute";
 import { ErrorPage } from "./pages/ErrorPage";
 import { AdminRoute } from "./components/layout/AdminRoute";
 function App() {
-  // const userInfo = useSelector(state => state.user.userInfo);
   return (
     <Routes>
       <Route path='/login' element={<Login />} />

@@ -17,7 +17,7 @@ const InputStyled = styled.div`
 export const InputCustom = (props) => {
   return (
     <InputStyled className='input-custom'>
-      <Input placeholder={props.placeholder} onChange = {props.handleChange} type = {props.inputType}/>
+      <Input value = {props.valueInput} placeholder={props.placeholder} onChange = {(e)=>props.handleChange(e)} type = {props.inputType}/>
     </InputStyled>
   )
 }

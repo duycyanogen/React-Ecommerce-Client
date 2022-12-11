@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import UserModal from '../components/userModal/userModal';
 
 function Login(props) {
+    console.log(props);
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -44,7 +45,7 @@ function Login(props) {
     const handleLoginClick = async () => {
         setErrorMessage('');
         try {
-            debugger;
+            // debugger;
             await handleLogin(userName, password).then(res => {
                 showToastSuccess("Đăng nhập thành công!");
                 props.userLoginSuccess(res.data.object);
@@ -143,5 +144,4 @@ function mapDispatchToProps(dispatch) {
         userLoginSuccess: (userInfo) => dispatch(actions.userLoginSuccess(userInfo))
     }
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

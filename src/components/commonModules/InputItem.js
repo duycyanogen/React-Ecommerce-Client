@@ -33,7 +33,7 @@ export const InputItem = (props) => {
   return (
     <InputItemStyled className = {`${props.vertical && 'vertical-item'} ${props.className}`}>
         <p>{props.title}</p>
-        <InputCustom placeholder = {props.placeholder} handleChange= {props.onChange} inputType = {props.inputType}/>
+        <InputCustom valueInput = {props.valueInput} placeholder = {props.placeholder} handleChange= {props.onChange} inputType = {props.inputType}/>
     </InputItemStyled>
   )
 }

@@ -10,14 +10,12 @@ import { Link } from 'react-router-dom';
 import { Footer } from '../footer/Footer';
 import { updateActivePage } from '../../store/slice/activePage';
 import { activePageSelector } from '../../store/selectors';
-import { getStatisticsData } from '../../services/statisticsService';
 
 export default function Header(props) {
   const userInfo = useSelector(state => state.user.userInfo);
   const activePage = useSelector(activePageSelector);
   const dispatch = useDispatch();
   const [isOpenChildModal, setIsOpenChildModal] = useState(false);
-  console.log(userInfo);
 
   const showModal = () => {
     setIsOpenChildModal(true);
