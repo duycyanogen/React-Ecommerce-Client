@@ -8,7 +8,7 @@ import { ContainerTitle } from '../commonModules/ContainerTitle';
 import { useSelector } from 'react-redux';
 import { handleLogin, handleUpdateInfo } from '../../services/userServices';
 import { userLoginSuccess } from '../../store/actions';
-
+import { handleChangePass } from '../../services/userServices';
 const UserAccountStyled = styled.div`
   .container {
     background-color: #2b2f3b; 
@@ -51,11 +51,15 @@ const UserAccountStyled = styled.div`
       margin-right: 10px;
     }
   }
+
+  .err-message {
+    color: #f73173;
+    padding-left: 30%;
+  }
 `
 
 
 export const  UserAccount = () => {
-  const navigate = useNavigate();
   const userInfo = useSelector(state => state.user.userInfo);
   console.log('infoooo', userInfo)
   const [email,setEmail] = useState(()=>{return userInfo.email});
@@ -63,6 +67,13 @@ export const  UserAccount = () => {
   const [address,setAddress] = useState(()=>{return userInfo.address});
   const [name,setName] = useState(()=>{return userInfo.fullName});
   const [loyaltyPoint,setLoyaltyPoint] = useState(()=>{return userInfo.loyaltyPoint});
+  const [currentPass,setCurrentPass] = useState('');
+  const [newPass,setNewPass] = useState('');
+  const [passConfirm,setPassConfirm] = useState('');
+  const [currentPassErr,setCurrentPassErr] =  useState();
+  const [newPassErr,setNewPassErr] =  useState();
+  const [passConfirmErr,setPassConfirmErr] = useState();
+
 
   const getEmail = (value) => {
     setEmail(value);
@@ -79,6 +90,22 @@ export const  UserAccount = () => {
   const getName = (value) => {
     setName(value);
   }
+  
+  const getCurrentPass = (value)=> {
+    setCurrentPass(value)
+  }
+  const getNewPass = (value) => {
+    setNewPass(value);
+  }
+  const getPassConfirm = (value)=> {
+    setPassConfirm(value)
+  }
+
+
+  const handleChangeValueInput = (e, func)=> {
+    func(e.target.value);
+  }
+
 
   const handleSubmitUpdate = async () => {
     let newInfo = {
@@ -90,7 +117,6 @@ export const  UserAccount = () => {
       name:name,
       loyaltyPoint:loyaltyPoint
     };
-    console.log('newInfo',newInfo);
     await handleUpdateInfo(newInfo);
     try {
       await handleLogin(phone, userInfo.password).then(res => {
@@ -105,10 +131,32 @@ export const  UserAccount = () => {
       console.log(err)
     }
   }
-
-  const handleChangeValueInput = (e, func)=> {
-    func(e.target.value);
+  
+  const handleUpdatePass = () => {
+    if(currentPass === userInfo.password && newPass!='' && newPass === passConfirm) {
+      let dataUpdate = {
+        userId :  userInfo.id,
+        newPassword :  newPass,
+      }
+      setCurrentPassErr('');
+      setNewPassErr('');
+      setPassConfirmErr('');
+      handleChangePass(dataUpdate);
+      return;
+    }
+    if(currentPass !== userInfo.password) {
+      setCurrentPassErr('Mật khẩu hiện tại không chính xác')
+    } else setCurrentPassErr('')
+    if(newPass === '') {
+      setNewPassErr('Mật khẩu mới không hợp lệ');
+    } else setNewPassErr('');
+    if(passConfirm === '' || passConfirm != newPass ) {
+      setPassConfirmErr('Nhập lại mật khẩu mới !')
+    } else {
+      setPassConfirmErr(''); 
+    }
   }
+ 
  
   return (
     <UserAccountStyled>
@@ -146,12 +194,29 @@ export const  UserAccount = () => {
 
          <p className='primary-title change-pass-title'>Đổi mật khẩu</p>
          <div className='container'>
-           <InputItem title = 'Nhập mật khẩu hiện tại' placeholder = '' className = 'container__item' inputType= 'password'  onChange = {()=> {}}/>
-           <InputItem title = 'Nhập mật khẩu mới' placeholder = '' className = 'container__item' inputType= 'password'  onChange = {()=> {}}/>
-           <InputItem title = 'Nhập lại mật khẩu mới' placeholder = '' className = 'container__item' inputType= 'password'  onChange = {()=> {}}/>
+           <InputItem 
+            title = 'Nhập mật khẩu hiện tại'
+            placeholder = '' 
+            className = 'container__item' 
+            inputType= 'password'  
+            onChange = {(e)=>handleChangeValueInput(e,getCurrentPass)}/>
+           {currentPassErr !='' && <p className='err-message'>{currentPassErr}</p>}
+           <InputItem title = 'Nhập mật khẩu mới'
+             placeholder = ''
+             className = 'container__item'
+             inputType= 'password' 
+             onChange = {(e)=>handleChangeValueInput(e,getNewPass)}/>
+           {newPassErr != '' && <p className='err-message'>{newPassErr}</p>}
+           <InputItem
+            title = 'Nhập lại mật khẩu mới' 
+            placeholder = '' 
+            className = 'container__item' 
+            inputType= 'password'  
+            onChange = {(e)=>handleChangeValueInput(e,getPassConfirm)}/>
+           {passConfirmErr !='' && <p className='err-message'>{passConfirmErr}</p>}
          </div>
          <div className='btn-block'>
-           <button className='primary-button' onClick = {()=> {}}>Cập nhật mật khẩu</button>
+           <button className='primary-button' onClick = {handleUpdatePass}>Cập nhật mật khẩu</button>
          </div>
     </UserAccountStyled>
   )
