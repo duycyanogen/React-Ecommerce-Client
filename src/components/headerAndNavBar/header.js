@@ -10,12 +10,14 @@ import { Link } from 'react-router-dom';
 import { Footer } from '../footer/Footer';
 import { updateActivePage } from '../../store/slice/activePage';
 import { activePageSelector } from '../../store/selectors';
+import { updateSearch } from '../../store/slice/seachSlice';
 
 export default function Header(props) {
   const userInfo = useSelector(state => state.user.userInfo);
   const activePage = useSelector(activePageSelector);
   const dispatch = useDispatch();
   const [isOpenChildModal, setIsOpenChildModal] = useState(false);
+  const [valueSearch,setValueSearch] = useState('');
 
   const showModal = () => {
     setIsOpenChildModal(true);
@@ -82,6 +84,14 @@ export default function Header(props) {
     dispatch(updateActivePage("statistics"));
   }
 
+  const handleChangeSearch = (e) => {
+    setValueSearch(e.target.value);
+  }
+
+  const handleSearch = () => {
+    dispatch(updateSearch(valueSearch));
+  }
+
   return (
     <>
       {/* Same as */}
@@ -96,8 +106,8 @@ export default function Header(props) {
           </a>
           <div className='nav-body'>
             <div className="wrap-search-bar">
-              <input type="text" className="search-input" placeholder='Nhập gì đó...' />
-              <button>
+              <input type="text" className="search-input" placeholder='Nhập gì đó...' value={valueSearch} onChange={(e) => handleChangeSearch(e)}/>
+              <button onClick={handleSearch}>
                 <i className="fa-solid fa-magnifying-glass"></i>
               </button>
             </div>

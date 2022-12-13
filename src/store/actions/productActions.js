@@ -10,7 +10,7 @@ export const getAllProduct = () => {
 
             dispatch(fetchProductStart());
             await getAll().then(res => {
-                console.log(res.data.object)
+                // console.log(res.data.object)
                 dispatch(fetchProductStop(res.data.object))
             })
 

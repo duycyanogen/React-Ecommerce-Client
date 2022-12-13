@@ -11,6 +11,17 @@ const getByID = async (id) => {
     return axios.post('http://localhost:8080/flower/get-by-id', { id: id });
 }
 
+const getFlowerByKey = async(valueSearch) => {
+        try {
+           const res =  await axios.post('http://localhost:8080/flower/get-by-key',{
+              keyword: valueSearch
+            })
+            return res.data.object;
+        } catch(err) {
+            console.log('err search',err)
+        }
+}
+
 const handleAddNewFlower = (input) => {
     debugger
     let formData = new FormData();
@@ -61,6 +72,7 @@ const handleUpdateViews = (id) => {
 
 export {
     getAll,
+    getFlowerByKey,
     handleAddNewFlower,
     handleUpdateFlower,
     handleDeleteFlower,

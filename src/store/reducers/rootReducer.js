@@ -5,11 +5,13 @@ import statisticsReducer from '../slice/statisticsSlice'
 import { combineReducers } from 'redux';
 import storage from 'redux-persist/lib/storage'
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
+import searchReducer from "../slice/seachSlice";
 const rootReducer = combineReducers({
     product: productReducer,
     user: userReducer,
     activePage:  activePageReducer,
-    statistics:  statisticsReducer
+    statistics:  statisticsReducer,
+    search: searchReducer
 })
 
 const persistCommonConfig = {

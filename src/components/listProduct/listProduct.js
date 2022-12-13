@@ -5,13 +5,31 @@ import { connect, useSelector } from 'react-redux';
 import './listProduct.scss'
 import * as actions from '../../store/actions/index'
 import { DoubleLeftOutlined, DoubleRightOutlined } from '@ant-design/icons';
+import { searchSelector } from "../../store/selectors";
+import { getFlowerByKey } from "../../services/flowerService";
 function ListProduct(props) {
+    const searchValue = useSelector(searchSelector);
+    console.log('search value', searchValue);
 
     const listProducts = useSelector(state => state.product.listProducts);
     const [pageNumber, setPageNumber] = useState(1);
     const [limitNumber] = useState(12);
     const currentPageNumber = (pageNumber * limitNumber) - limitNumber;
-    const listRender = listProducts?.slice(currentPageNumber, currentPageNumber + limitNumber);
+    const [listRender,setListRender] = useState()
+
+    useEffect(()=> {
+        if(listProducts && searchValue==='') {
+            setListRender(listProducts.slice(currentPageNumber, currentPageNumber + limitNumber))
+        }
+        if(searchValue != '') {
+            getProductSearch(searchValue);
+        }
+    },[listProducts,searchValue])
+
+    const getProductSearch =  async (value) => {
+        let temp = await getFlowerByKey(value);
+        setListRender(temp);
+    }
     const handlePrev = () => {
         if (pageNumber === 1) return
         setPageNumber(pageNumber - 1)
