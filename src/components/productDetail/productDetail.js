@@ -13,7 +13,7 @@ import { CommentView } from '../Cmt/CommentView';
 import { Rate } from 'antd';
 import { ImageGroup } from '../imgComponent/ImageGroup';
 import Gallery from "../gallery/Gallery";
-import { getByID, handleAddRatingFlower, handleGetRatingFlower } from '../../services/flowerService'
+import { getByID, handleAddRatingFlower, handleGetRatingFlower, handleUpdateViews } from '../../services/flowerService'
 const dataCommentFake = [
     {
         userAvatar: '../image/bg-footer.jpg',
@@ -55,6 +55,7 @@ function ProductDetail() {
     const [comments, setComments] = useState([]);
     useEffect(() => {
         async function fetchProduct() {
+            await handleUpdateViews(id);
             await getByID(id).then(res => {
                 setProduct(res.data.object);
             });
@@ -94,6 +95,8 @@ function ProductDetail() {
         }
 
     }
+
+
 
     const handleAddToCart = async () => {
         debugger;

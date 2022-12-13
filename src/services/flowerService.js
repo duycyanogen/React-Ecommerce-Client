@@ -54,6 +54,11 @@ const handleAddRatingFlower = async (ratingRequest) => {
     });
 }
 
+const handleUpdateViews = (id) => {
+    return axios.post('http://localhost:8080/flower/update-views', { id: id })
+}
+
+
 export {
     getAll,
     handleAddNewFlower,
@@ -61,5 +66,6 @@ export {
     handleDeleteFlower,
     getByID,
     handleGetRatingFlower,
-    handleAddRatingFlower
+    handleAddRatingFlower,
+    handleUpdateViews
 }
