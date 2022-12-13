@@ -6,17 +6,18 @@ import { getStatisticsData } from '../../services/statisticsService';
 const { RangePicker } = DatePicker;
 export const DatePickerCustom = (props) => {
   const getChartData = props.getChartData;
+  const typeTime = props.typeTime;
   const [dates, setDates] = useState(['','']);
 
  const handleData = async ()=> {
-  let tempData = await getStatisticsData(dates)
+  let tempData = await getStatisticsData(dates, typeTime)
   console.log(tempData);
   getChartData(tempData);
  }
   useEffect(()=> {
     if(dates[0]!='')
     handleData();
-  },[dates])
+  },[dates, typeTime])
 
   return (
     <RangePicker format="DD-MM-YYYY" className = {props.className} onChange={(values) => {

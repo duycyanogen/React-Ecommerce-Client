@@ -21,15 +21,28 @@ const dataSelect  = [
     {
         value: 'Line chart'
     },
-    // {
-    //     value: 'Pie chart'
-    // },
+    {
+        value: 'Pie chart'
+    },
+]
+
+const typeTimeSelect = [
+    {
+        value: "Ngày"
+    },
+    {
+        value: "Tháng" 
+    },
+    {
+        value: "Năm"
+    }
 ]
 
 export const ChartItem = (props) => {
     const [chartTypeRender,setChartTypeRender] = useState('Bar chart');
     const [chartType,setChartType] = useState('bar');
     const [dataChart,setDataChart] = useState([]);
+    const [typeTime,setTypeTime] = useState('d');
    
     useEffect(()=> {
         handleChangeChartType();
@@ -38,6 +51,22 @@ export const ChartItem = (props) => {
     const getValue = (value) => {
         setChartTypeRender(value);
     }
+
+    const getTypeTime = (value) => {
+        if(value === "Ngày"){
+            console.log('Ngày nè');
+            setTypeTime('d');
+        }
+        else if(value  === "Tháng") {
+            console.log('tháng nè')
+            setTypeTime('m');
+        }
+        else if(value === "Năm"){
+            console.log('năm nè');
+            setTypeTime('y');
+        }
+    }
+
 
     const getChartData = (data) => {
         console.log('data chart', data);
@@ -58,16 +87,17 @@ export const ChartItem = (props) => {
               return
            }
         
-        //    if(chartTypeRender== 'Pie chart'){
-        //     setChartType('pie');
-        //     };
+           if(chartTypeRender== 'Pie chart'){
+            setChartType('pie');
+            };
     }
 
   return (
     <ChartItemStyled>
       <div className='chart-option'>
-         <DatePickerCustom className='date-picker-custom' getChartData={getChartData}/>
+         <DatePickerCustom className='date-picker-custom' getChartData={getChartData} typeTime = {typeTime}/>
          <SelectCustom dataSelect = {dataSelect} getValue = {getValue}/>
+         <SelectCustom dataSelect = {typeTimeSelect} getValue = {getTypeTime}/>
       </div>
       <MyChart dataChart= {dataChart} labelChart = 'value' chartType = {chartType}/>
     </ChartItemStyled>
