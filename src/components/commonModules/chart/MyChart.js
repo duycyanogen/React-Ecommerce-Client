@@ -12,47 +12,87 @@ const MyChartStyled = styled.div`
 
 //props: 
 // dataChart :
-// const dataChart = [
-//     {
-//       year: 2016,
-//       value: 80000,
-//     },
-//     {
-//       year: 2017,
-//       value: 10000,
-//     },
-//     ... 
-// ];
+const dataChart2 = [
+    {
+      time: 2016,
+      value: 80000,
+    },
+    {
+      time: 2017,
+      value: 10000,
+    },
+
+]
 // labelChart: string
 
 export const  MyChart = (props) => {
-    const dataChart = props.dataChart;
+    const dataChart= props.dataChart?.map((item,index)=> {
+      return {time:item.time, value: parseFloat(item.value)}
+    })
+    console.log('data nè', dataChart);
     const labelChart = props.labelChart;
     const chartType = props.chartType;
-    const [dataRender, setDataRender] = useState({
-        labels: dataChart?.map((data) => data.time),
+    const  dataRender = {
+        labels: dataChart.map((data) => data.time),
         datasets: [
           {
             label: labelChart,
-            data: dataChart?.map((data) => data.value),
+            data: dataChart.map((data) => data.value),
             backgroundColor: [
-                  "rgba(75,192,192,1)",
-                  "#ecf0f1",
-                  "#50AF95",
                   "#f3ba2f",
-                  "#fff",
+                  // "#ecf0f1",
+                  // "#50AF95",
+                  // "#f3ba2f",
+                  // "#fff",
             ],
-            borderColor: '#f3ba2f',
-            borderWidth: 2,
+            borderColor: '#f73173',
+            borderWidth: 1,
+            barThickness: 20,  
+            color: "red"
           },
         ],
-      });
+      };
 
+      console.log('data render', dataRender)
+    const optionCustom = {
+      plugins: { 
+        legend: {
+          labels: {
+            color: "#fff",  
+            font: {
+              size: 12 
+            }
+          }
+        }
+      },
+      scales: {
+        y: {  
+          ticks: {
+            color: "#fff", 
+            font: {
+              size: 12, 
+            },
+            stepSize: 1,
+            beginAtZero: true
+          }
+        },
+        x: { 
+          ticks: {
+            color: "#fff",  
+            font: {
+              size: 12 
+            },
+            stepSize: 1,
+            beginAtZero: true
+          }
+        }
+      }
+    }
     return (
     <MyChartStyled>
-      {(chartType === 'bar') && <Bar data={dataRender} />}
-      {(chartType === 'line' && <Line data={dataRender} />)} 
-      {(chartType === 'pie' && <Pie data = {dataRender}/>)}
+      {(chartType === 'bar') && <Bar data={dataRender} options = {optionCustom}/>}
+      {(chartType === 'line' && <Line data={dataRender} options = {optionCustom}/>)} 
+      {/* {(chartType === 'pie' && <Pie data = {dataRender}/>)} */}
     </MyChartStyled>
   )
 }

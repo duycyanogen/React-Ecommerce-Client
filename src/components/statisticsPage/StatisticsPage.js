@@ -44,10 +44,10 @@ export const  StatisticsPage = () => {
       <ContainerTitle title = 'Thống kê'/>
       <p className='primary-title'>Chart 1</p>
       <ChartItem />
-      <p className='primary-title' style={{marginTop: '40px'}}>Chart 2</p>
-      <ChartItem />
-      <p className='primary-title' style={{marginTop: '40px'}}>Chart 3</p>
-      <ChartItem />
+      // <p className='primary-title' style={{marginTop: '40px'}}>Chart 2</p>
+      // <ChartItem />
+      // <p className='primary-title' style={{marginTop: '40px'}}>Chart 3</p>
+      // <ChartItem />
       <br/>
     </StatisticsPageStyled>
   )

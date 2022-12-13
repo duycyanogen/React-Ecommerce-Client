@@ -21,9 +21,9 @@ const dataSelect  = [
     {
         value: 'Line chart'
     },
-    {
-        value: 'Pie chart'
-    },
+    // {
+    //     value: 'Pie chart'
+    // },
 ]
 
 export const ChartItem = (props) => {
@@ -58,9 +58,9 @@ export const ChartItem = (props) => {
               return
            }
         
-           if(chartTypeRender== 'Pie chart'){
-            setChartType('pie');
-            };
+        //    if(chartTypeRender== 'Pie chart'){
+        //     setChartType('pie');
+        //     };
     }
 
   return (
@@ -69,7 +69,7 @@ export const ChartItem = (props) => {
          <DatePickerCustom className='date-picker-custom' getChartData={getChartData}/>
          <SelectCustom dataSelect = {dataSelect} getValue = {getValue}/>
       </div>
-      <MyChart dataChart= {dataChart} labelChart = 'time' chartType = {chartType}/>
+      <MyChart dataChart= {dataChart} labelChart = 'value' chartType = {chartType}/>
     </ChartItemStyled>
   )
 }
