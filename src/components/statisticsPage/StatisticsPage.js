@@ -48,7 +48,7 @@ export const  StatisticsPage = () => {
       // <ChartItem />
       // <p className='primary-title' style={{marginTop: '40px'}}>Chart 3</p>
       // <ChartItem />
-      <br/>
+      <br/>      
     </StatisticsPageStyled>
   )
 }
