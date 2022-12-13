@@ -78,8 +78,8 @@ export default function Header(props) {
     />
   );
 
-  const handleLoadStatisticsPage = ()=> {
-     dispatch(updateActivePage("statistics"));
+  const handleLoadStatisticsPage = () => {
+    dispatch(updateActivePage("statistics"));
   }
 
   return (
@@ -91,7 +91,7 @@ export default function Header(props) {
         <div className="wrapper-top-menu">
           <a href='http://localhost:3000' className='nav-logo'>
             {/* <img src={flower} /> */}
-            <img src='../../image/app-logo.png' />
+            <img src='../../image/logo.png' />
             <span>FLOWER STORE</span>
           </a>
           <div className='nav-body'>
